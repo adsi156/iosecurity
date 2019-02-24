@@ -10,4 +10,4 @@ Repositorio del curso de SENA ADSI 156
 5. Con el repositorio en su cuenta personal vaya a la opcion de **Clone or download** y copie la ruta que le aparecera.
 6. Ahora vaya a la consola de comandos de su pc y ubiquese en la carpeta donde va alojar el proyecto y ejecute el siguiente comando "git clone (y pegue el link copiado)" esto bajara el repositorio a su maquina local y podra comenzar a desarrollar.
 
-**Mucha suerte y que el juego comience**  
+**...Mucha suerte y que el juego comience...**  

@@ -27,6 +27,15 @@ Route::get('/inicio', function () {
 Route::get('formulario', function () {
     return view('form');
 });
+Route::get('/usuarios', function () {
+    return view('usuarios');
+});
+Route::get('/componentes', function () {
+    return view('componentes');
+});
+Route::get('/config_componentes', function () {
+    return view('config_componentes');
+});
 Route::get('/dashboard', function () {
     return view('dashboard');
 });

@@ -27,3 +27,15 @@ Route::get('/inicio', function () {
 Route::get('formulario', function () {
     return view('form');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+Route::get('/horarios', function () {
+    return view('horarios');
+});
+Route::get('/ambientes', function () {
+    return view('ambientes');
+});
+Route::get('/sedes', function () {
+    return view('sedes');
+});

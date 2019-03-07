@@ -277,7 +277,7 @@
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
 									<li>
-										<a href="index.html">
+										<a href="{{ url('dashboard') }}">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Dashboard</span>
 										</a>
@@ -287,6 +287,24 @@
 											<span class="pull-right label label-primary">182</span>
 											<i class="fa fa-envelope" aria-hidden="true"></i>
 											<span>Mailbox</span>
+										</a>
+									</li>
+									<li>
+										<a href="{{url('/horarios')}}">
+											<i class="fa fa-clock-o" aria-hidden="true"></i>
+											<span>Horarios</span>
+										</a>
+									</li>
+									<li>
+										<a href="{{url('/sedes')}}">
+											<i class="fa fa-building" aria-hidden="true"></i>
+											<span>Sedes</span>
+										</a>
+									</li>
+									<li>
+										<a href="{{url('/ambientes')}}">
+											<i class="fa fa-building-o" aria-hidden="true"></i>
+											<span>Ambientes</span>
 										</a>
 									</li>
 									<li class="nav-parent nav-expanded nav-active">

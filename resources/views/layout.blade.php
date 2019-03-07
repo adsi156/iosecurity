@@ -283,12 +283,30 @@
 										</a>
 									</li>
 									<li>
-										<a href="mailbox-folder.html">
-											<span class="pull-right label label-primary">182</span>
-											<i class="fa fa-envelope" aria-hidden="true"></i>
-											<span>Mailbox</span>
+										<a href="{{url('/usuarios')}}">
+											<span class="pull-right label label-primary">0</span>
+											<i class="fa fa-user" aria-hidden="true"></i>
+											<span>Usuarios</span>
 										</a>
 									</li>
+									<li class="nav-parent nav-expanded nav-active">
+										<a>
+											<i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+											<span>Componentes</span>
+										</a>
+										<ul class="nav nav-children">
+											<li>
+												<a href="{{url('/componentes')}}">
+													 Componentes
+												</a>
+											</li>
+											<li>
+												<a href="{{url('/config_componentes')}}">
+													 Configuración Componentes
+												</a>
+											</li>
+										</ul>
+									</li>											
 									<li class="nav-parent nav-expanded nav-active">
 										<a>
 											<i class="fa fa-copy" aria-hidden="true"></i>

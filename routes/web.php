@@ -36,3 +36,15 @@ Route::get('/componentes', function () {
 Route::get('/config_componentes', function () {
     return view('config_componentes');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+Route::get('/horarios', function () {
+    return view('horarios');
+});
+Route::get('/ambientes', function () {
+    return view('ambientes');
+});
+Route::get('/sedes', function () {
+    return view('sedes');
+});

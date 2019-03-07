@@ -12,5 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
+});
+Route::get('login', function () {
+    return view('login');
+});
+
+Route::get('usuarios/nuevo', function () {
+    return view('registrar');
+});
+Route::get('/inicio', function () {
+    return view('form');
+});
+Route::get('formulario', function () {
+    return view('form');
 });

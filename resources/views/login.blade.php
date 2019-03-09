@@ -47,11 +47,14 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
 					</div>
 					<div class="panel-body">
-						<form action="{{ url('inicio') }}" method="get">
-							<div class="form-group mb-lg">
+						<form action="{{ url('validar') }}" method="POST">
+					
+						@csrf
+
+						<div class="form-group mb-lg">
 								<label>Username</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" />
+									<input name="email" type="text" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -66,7 +69,7 @@
 									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group input-group-icon">
-									<input name="pwd" type="password" class="form-control input-lg" />
+									<input name="password" type="password" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -88,6 +91,12 @@
 								</div>
 							</div>
 
+							@if(Session::has('message'))
+							<div>
+								<p style="color:red; text-align:center;">{{ Session::get('message') }}</p>	
+							</div>
+							@endif
+
 							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
 								<span>or</span>
 							</span>
@@ -97,7 +106,7 @@
 								<a class="btn btn-twitter mb-md ml-xs mr-xs">Connect with <i class="fa fa-twitter"></i></a>
 							</div>
 
-							<p class="text-center">Don't have an account yet? <a href="usuarios/nuevo">Sign Up!</a>
+							<p class="text-center">Don't have an account yet? <a href="{{ url('usuarios/nuevo') }}">Sign Up!</a>
 
 						</form>
 					</div>

@@ -32,7 +32,12 @@
 
 		<!-- Head Libs -->
 		<script src="{{ url('assets/vendor/modernizr/modernizr.js') }}"></script>
-
+		<style>
+			.error{
+				color:red;
+				font-style: italic;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- start: page -->
@@ -47,28 +52,40 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign Up</h2>
 					</div>
 					<div class="panel-body">
-						<form>
+						<form action="{{ url('usuarios') }}" method="post">
+
+							@csrf
+
 							<div class="form-group mb-lg">
 								<label>Name</label>
-								<input name="name" type="text" class="form-control input-lg" />
+								<input name="t011_nombre" type="text" class="form-control input-lg" value="{{old('t011_nombre')}}"/>
 							</div>
+							@foreach ($errors->get('t011_nombre') as $message)
+								<p class="error">* {{ $message }}</p>
+							@endforeach
 
 							<div class="form-group mb-lg">
 								<label>E-mail Address</label>
-								<input name="email" type="email" class="form-control input-lg" />
+								<input name="email" type="email" class="form-control input-lg" value="{{old('email')}}"/>
 							</div>
+							@foreach ($errors->get('email') as $message)
+								<p class="error">* {{ $message }}</p>
+							@endforeach
 
 							<div class="form-group mb-none">
 								<div class="row">
 									<div class="col-sm-6 mb-lg">
 										<label>Password</label>
-										<input name="pwd" type="password" class="form-control input-lg" />
+										<input name="password" type="password" class="form-control input-lg" />
 									</div>
 									<div class="col-sm-6 mb-lg">
 										<label>Password Confirmation</label>
-										<input name="pwd_confirm" type="password" class="form-control input-lg" />
+										<input name="password_confirmation" type="password" class="form-control input-lg" />
 									</div>
 								</div>
+								@foreach ($errors->get('password') as $message)
+									<p class="error">* {{ $message }}</p>
+								@endforeach
 							</div>
 
 							<div class="row">

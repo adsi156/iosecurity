@@ -12,30 +12,46 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+
+    // Auth::logout();
+
+    if(Auth::check()){
+        echo "---";
+        echo "<pre>";
+        print_r(Auth::user());
+    }else{
+        echo "...";
+    }
+    // return view('login');
 });
 Route::get('login', function () {
     return view('login');
+})->name('login');
+
+Route::get('usuarios/nuevo', 'UserController@create');
+Route::post('usuarios', 'UserController@store');
+Route::post('validar', 'LoginController@authenticate');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/inicio', function () {
+        return view('form');
+    });
+    Route::get('formulario', function () {
+        return view('form');
+    });
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+    Route::get('/horarios', function () {
+        return view('horarios');
+    });
+    Route::get('/ambientes', function () {
+        return view('ambientes');
+    });
+    Route::get('/sedes', function () {
+        return view('sedes');
+    });
+
 });
 
-Route::get('usuarios/nuevo', function () {
-    return view('registrar');
-});
-Route::get('/inicio', function () {
-    return view('form');
-});
-Route::get('formulario', function () {
-    return view('form');
-});
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-Route::get('/horarios', function () {
-    return view('horarios');
-});
-Route::get('/ambientes', function () {
-    return view('ambientes');
-});
-Route::get('/sedes', function () {
-    return view('sedes');
-});

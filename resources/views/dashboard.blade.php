@@ -1,5 +1,6 @@
 @extends('layout')
 @section('header')
+@csrf
 <header class="page-header">
     <h2>Horarios</h2>
     <div class="right-wrapper pull-right">

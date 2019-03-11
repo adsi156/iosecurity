@@ -35,7 +35,7 @@ Route::post('validar', 'LoginController@authenticate');
 
 Route::middleware(['auth'])->group(function () {
     
-    Route::get('/roles','rolesController@index');
+    Route::resource('/roles','rolesController');
     Route::get('/inicio', function () {
         return view('form');
     });

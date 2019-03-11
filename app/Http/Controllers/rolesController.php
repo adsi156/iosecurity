@@ -97,8 +97,14 @@ class rolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Rol $role)
     {
-        //
+        $role->delete();
+        $respuesta = ['msg' => 'Se borro satisfactoriamente'];
+        return response()->json($respuesta,200);
+        // if($rol){
+        // }
+        // $error = [ 'msg'=>"No se pudo borrar"];
+        // return response()->json($error,404);
     }
 }

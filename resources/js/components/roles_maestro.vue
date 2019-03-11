@@ -19,7 +19,7 @@
       <el-table-column label="opciones">
             <template slot-scope="scope">
         <el-button @click="handleClick(scope)" type="text" size="small">{{scope.row.f007_nombre}}</el-button>
-        <el-button type="text" size="small">Editar</el-button>
+        <el-button @click="borrarRol(scope.row)" type="text" size="small">Borrar</el-button>
       </template>
       </el-table-column>
     </el-table>
@@ -46,6 +46,20 @@
         methods:{
             guardar(){
 
+            },
+            borrarRol(rol){
+                axios.delete('/roles/'+rol.f007_id).then(res=>{
+                    let mensaje = res.data.msg;
+                    console.log("borrarRol: ",mensaje);
+                    this.$message({
+                    message: mensaje,
+                    type: 'success'
+                    });
+                    this.consultarRoles();
+
+                }).catch(error=>{
+                    console.error(error.data.msg)
+                })
             },
             handleClick(rol){
                 console.log("se dio clic en el rol:",rol);

@@ -3470,11 +3470,28 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     guardar: function guardar() {},
+    borrarRol: function borrarRol(rol) {
+      var _this = this;
+
+      axios.delete('/roles/' + rol.f007_id).then(function (res) {
+        var mensaje = res.data.msg;
+        console.log("borrarRol: ", mensaje);
+
+        _this.$message({
+          message: mensaje,
+          type: 'success'
+        });
+
+        _this.consultarRoles();
+      }).catch(function (error) {
+        console.error(error.data.msg);
+      });
+    },
     handleClick: function handleClick(rol) {
       console.log("se dio clic en el rol:", rol);
     },
     consultarRoles: function consultarRoles() {
-      var _this = this;
+      var _this2 = this;
 
       var buscar = this.nombre;
       var data = {
@@ -3483,7 +3500,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.get('/roles', data).then(function (res) {
-        _this.rolesTabla = res.data;
+        _this2.rolesTabla = res.data;
         console.log("llegaron los datos: ", res.data);
       }).catch(function (err) {
         console.error("Error al consultar la ruta");
@@ -89961,8 +89978,15 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "el-button",
-                      { attrs: { type: "text", size: "small" } },
-                      [_vm._v("Editar")]
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.borrarRol(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Borrar")]
                     )
                   ]
                 }

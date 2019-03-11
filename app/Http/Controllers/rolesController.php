@@ -13,9 +13,14 @@ class rolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search="";
+        if($request->has("search")){
+            $search = $request->search;
+        }
+        $roles = rol::where('f007_nombre','like','%'.$search.'%')->get();
+        return response()->json($roles);
     }
 
     /**

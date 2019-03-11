@@ -67,6 +67,19 @@
                 </footer>
             </section>
         </form>
+		<section class="panel">
+			<header class="panel-heading">
+				<div class="panel-actions">
+					<a href="#" class="fa fa-caret-down"></a>
+					<!--<a href="#" class="fa fa-times"></a>-->
+				</div>
+				<h2 class="panel-title">Creación de roles VUE</h2>
+			</header>
+			<div class="panel-body">
+				<roles-maestro></roles-maestro>
+			</div>
+
+        </section>
         <!-- Modal Animation -->
         <div id="modalAnim" class="zoom-anim-dialog modal-block modal-block-primary mfp-hide">
             <section class="panel">

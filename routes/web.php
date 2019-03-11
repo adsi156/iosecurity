@@ -32,8 +32,10 @@ Route::get('usuarios/nuevo', 'UserController@create');
 Route::post('usuarios', 'UserController@store');
 Route::post('validar', 'LoginController@authenticate');
 
-Route::middleware(['auth'])->group(function () {
 
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/roles','rolesController@index');
     Route::get('/inicio', function () {
         return view('form');
     });

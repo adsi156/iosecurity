@@ -9,6 +9,7 @@
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -365,15 +366,15 @@
 				</aside>
 				<!-- end: sidebar -->
 
-				<section role="main" class="content-body">
+				<section role="main" class="content-body" >
 					<!-- start header -->
 					@yield('header')
 					<!-- end header -->
 
 					<!-- start: page -->
-					
-					@yield('content')
-
+					<div id="app">
+						@yield('content')
+					</div>
 					<!-- end: page -->
 				</section>
 			</div>
@@ -467,6 +468,7 @@
 
 		<!-- Examples -->
 		<script src="assets/javascripts/ui-elements/examples.modals.js"></script>
+		<script src="js/app.js"></script>
 
 	</body>
 </html>

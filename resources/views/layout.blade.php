@@ -282,12 +282,23 @@
 											<span>Dashboard</span>
 										</a>
 									</li>
-									<li>
-										<a href="{{url('/usuarios')}}">
-											<span class="pull-right label label-primary">0</span>
-											<i class="fa fa-user" aria-hidden="true"></i>
+									<li class="nav-parent nav-expanded nav-active">
+										<a>
+											<i class="fa fa-lightbulb-o" aria-hidden="true"></i>
 											<span>Usuarios</span>
 										</a>
+										<ul class="nav nav-children">
+											<li>
+												<a href="{{url('/usuarioscrear')}}">
+													 Maestro de Usuarios
+												</a>
+											</li>
+											<li>
+												<a href="{{url('/rolescrear')}}">
+													 Maestro de Roles
+												</a>
+											</li>
+										</ul>
 									</li>
 									<li>
 										<a href="{{url('/horarios')}}">
@@ -453,6 +464,9 @@
 		
 		<!-- Theme Initialization Files -->
 		<script src="assets/javascripts/theme.init.js"></script>
+
+		<!-- Examples -->
+		<script src="assets/javascripts/ui-elements/examples.modals.js"></script>
 
 	</body>
 </html>

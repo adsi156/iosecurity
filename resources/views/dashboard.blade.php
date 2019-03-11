@@ -2,7 +2,7 @@
 @section('header')
 @csrf
 <header class="page-header">
-    <h2>Horarios</h2>
+    <h2>Panel de control</h2>
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>

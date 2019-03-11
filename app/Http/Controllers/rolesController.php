@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use Hash;
-use App\User;
+use App\rol;
 
-class UserController extends Controller
+class rolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('registrar');
+        //
     }
 
     /**
@@ -38,11 +37,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'f011_nombre' => 'required|max:50',
-            'email' => 'required|email|unique:t011_usuarios,email',
-            'password' => 'required|min:6|confirmed',
-            'f011_documento' => 'unique:t011_usuarios,f011_documento',
-            'f011_tipo_documento' => 'required'
+            'f007_nombre' => 'required|max:50',
+            'f007_descripcion' => 'max:100'
         ]);
 
         if ($validator->fails()) {
@@ -50,22 +46,10 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }else {
-            if ($request->file('f011_imagen')) {
-                $request['f011_imagen'] = $request->file('f011_imagen')->getClientOriginalName();
-                $request->file('f011_imagen')->move(public_path('img'), $pelicula['f011_imagen']);
-            }else{
-                $pelicula['f011_imagen'] = 'default';
-            }
+            $datos = $request->all();
+            rol::create($datos);
+            return redirect('/rolescrear');
         }
-        $datos = $request->all();
-        /*echo "<pre>";
-        print_r($datos);
-        echo "</pre>";
-        */
-        $datos['password'] = Hash::make($datos['password']);
-
-        User::create($datos);
-        return redirect('login');
     }
 
     /**

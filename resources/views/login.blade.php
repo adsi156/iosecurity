@@ -52,9 +52,9 @@
 						@csrf
 
 						<div class="form-group mb-lg">
-								<label>Username</label>
+								<label>E-mail</label>
 								<div class="input-group input-group-icon">
-									<input name="email" type="text" class="form-control input-lg" />
+									<input name="email" type="email" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -65,7 +65,7 @@
 
 							<div class="form-group mb-lg">
 								<div class="clearfix">
-									<label class="pull-left">Password</label>
+									<label class="pull-left">Contraseña</label>
 									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group input-group-icon">

@@ -52,6 +52,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sedes', function () {
         return view('sedes');
     });
-
+    Route::get('/usuarios', function () {
+        return view('usuarios');
+    });
+    Route::get('/usuarioscrear', function () {
+        return view('usuariosmaestro');
+    });
+    Route::get('/rolescrear', function () {
+        return view('rolesmaestro');
+    });
+    Route::post('/rolescrear', 'rolesController@store');
 });
 

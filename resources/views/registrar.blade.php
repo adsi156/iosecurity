@@ -12,6 +12,9 @@
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+		<!-- Specific Page Vendor CSS -->
+		<link rel="stylesheet" href="{{ url('assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css') }}" />
+
 		<!-- Web Fonts  -->
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
@@ -57,29 +60,66 @@
 							@csrf
 
 							<div class="form-group mb-lg">
-								<label>Name</label>
-								<input name="t011_nombre" type="text" class="form-control input-lg" value="{{old('t011_nombre')}}"/>
+								<label>Nombre Completo</label>
+								<input name="f011_nombre" type="text" class="form-control input-lg" value="{{old('f011_nombre')}}"/>
 							</div>
-							@foreach ($errors->get('t011_nombre') as $message)
+							@foreach ($errors->get('f011_nombre') as $message)
+								<p class="error">* {{ $message }}</p>
+							@endforeach
+							<div class="form-group mb-lg">
+								<label>Tipo de documento</label>
+								<select class="form-control mb-md" name="f011_tipo_documento" value="{{old('f011_tipo_documento')}}">
+									<option value="CC">CC</option>
+									<option value="TI">TI</option>
+									<option value="NIT">NIT</option>
+									<option value="CE">CE</option>
+								</select>
+							</div>
+
+							<div class="form-group mb-lg">
+								<label>No. Documento</label>
+								<input name="f011_documento" type="text" class="form-control input-lg" value="{{old('f011_documento')}}"/>
+							</div>
+							@foreach ($errors->get('f011_documento') as $message)
 								<p class="error">* {{ $message }}</p>
 							@endforeach
 
 							<div class="form-group mb-lg">
-								<label>E-mail Address</label>
+								<label>E-mail</label>
 								<input name="email" type="email" class="form-control input-lg" value="{{old('email')}}"/>
 							</div>
 							@foreach ($errors->get('email') as $message)
 								<p class="error">* {{ $message }}</p>
 							@endforeach
 
+							<label class="control-label">Foto</label>
+							<div class="form-group mb-lg">
+								<div class="col-md-12">
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="input-append">
+											<div class="uneditable-input">
+												<i class="fa fa-file fileupload-exists"></i>
+												<span class="fileupload-preview"></span>
+											</div>
+											<span class="btn btn-default btn-file">
+												<span class="fileupload-exists">Change</span>
+												<span class="fileupload-new">Select file</span>
+												<input type="file" name="f011_imagen" value="{{old('f011_imagen')}}"/>
+											</span>
+											<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="form-group mb-none">
 								<div class="row">
 									<div class="col-sm-6 mb-lg">
-										<label>Password</label>
+										<label>Contraseña</label>
 										<input name="password" type="password" class="form-control input-lg" />
 									</div>
 									<div class="col-sm-6 mb-lg">
-										<label>Password Confirmation</label>
+										<label>Repetir Contraseña</label>
 										<input name="password_confirmation" type="password" class="form-control input-lg" />
 									</div>
 								</div>
@@ -130,6 +170,10 @@
 		<script src="{{ url('assets/vendor/magnific-popup/magnific-popup.js') }}"></script>
 		<script src="{{ url('assets/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
 		
+		<!-- Specific Page Vendor -->
+		<script src="{{ url('assets/vendor/jquery-autosize/jquery.autosize.js') }}"></script>
+		<script src="{{ url('assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js') }}"></script>
+
 		<!-- Theme Base, Components and Settings -->
 		<script src="{{ url('assets/javascripts/theme.js') }}"></script>
 		

@@ -3452,15 +3452,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      nombre: '',
-      rolesTabla: []
+      nombre: "",
+      descripcion: "",
+      rolesTabla: [],
+      nombre_new: "",
+      descripcion_new: ""
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log("Component mounted.");
     this.consultarRoles();
   },
   watch: {
@@ -3469,20 +3479,50 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    guardar: function guardar() {},
-    borrarRol: function borrarRol(rol) {
+    guardar: function guardar() {
       var _this = this;
 
-      axios.delete('/roles/' + rol.f007_id).then(function (res) {
-        var mensaje = res.data.msg;
-        console.log("borrarRol: ", mensaje);
+      var rol = {
+        f007_nombre: this.nombre_new,
+        f007_descripcion: this.descripcion_new
+      };
+      axios.post('/roles', rol).then(function (res) {
+        var msg = "Guardo satisfactoriamente";
+        console.log(msg);
 
         _this.$message({
-          message: mensaje,
-          type: 'success'
+          message: msg,
+          type: "success"
         });
 
         _this.consultarRoles();
+      }).catch(function (err) {
+        var msg = "ocurrio un error al guardar";
+        console.error(msg);
+        console.error(err);
+
+        _this.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this.nombre_new = "";
+        _this.descripcion_new = "";
+      });
+    },
+    borrarRol: function borrarRol(rol) {
+      var _this2 = this;
+
+      axios.delete("/roles/" + rol.f007_id).then(function (res) {
+        var mensaje = res.data.msg;
+        console.log("borrarRol: ", mensaje);
+
+        _this2.$message({
+          message: mensaje,
+          type: "success"
+        });
+
+        _this2.consultarRoles();
       }).catch(function (error) {
         console.error(error.data.msg);
       });
@@ -3491,7 +3531,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("se dio clic en el rol:", rol);
     },
     consultarRoles: function consultarRoles() {
-      var _this2 = this;
+      var _this3 = this;
 
       var buscar = this.nombre;
       var data = {
@@ -3499,8 +3539,8 @@ __webpack_require__.r(__webpack_exports__);
           search: buscar
         }
       };
-      axios.get('/roles', data).then(function (res) {
-        _this2.rolesTabla = res.data;
+      axios.get("/roles", data).then(function (res) {
+        _this3.rolesTabla = res.data;
         console.log("llegaron los datos: ", res.data);
       }).catch(function (err) {
         console.error("Error al consultar la ruta");
@@ -89921,8 +89961,67 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container" },
     [
+      _c(
+        "el-row",
+        { attrs: { gutter: 20 } },
+        [
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _c("el-input", {
+                attrs: { label: "nombre", placeholder: "Ingresa el nombre" },
+                model: {
+                  value: _vm.nombre_new,
+                  callback: function($$v) {
+                    _vm.nombre_new = $$v
+                  },
+                  expression: "nombre_new"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _c("el-input", {
+                attrs: {
+                  label: "descripcion",
+                  placeholder: "Ingresa la descripcion"
+                },
+                model: {
+                  value: _vm.descripcion_new,
+                  callback: function($$v) {
+                    _vm.descripcion_new = $$v
+                  },
+                  expression: "descripcion_new"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c(
+            "el-button",
+            { attrs: { type: "primary" }, on: { click: _vm.guardar } },
+            [_vm._v("Guardar")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
       _c(
         "el-row",
         [

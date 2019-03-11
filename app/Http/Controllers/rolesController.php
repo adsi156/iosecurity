@@ -47,6 +47,23 @@ class rolesController extends Controller
         ]);
 
         if ($validator->fails()) {
+            return response()->json(["errores"=>$validator->errors]);
+        }else {
+            $datos = $request->all();
+            $rol = rol::create($datos);
+            return response()->json($rol);
+        }
+    }
+
+
+    public function guardar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'f007_nombre' => 'required|max:50',
+            'f007_descripcion' => 'max:100'
+        ]);
+
+        if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput();
@@ -56,7 +73,6 @@ class rolesController extends Controller
             return redirect('/rolescrear');
         }
     }
-
     /**
      * Display the specified resource.
      *

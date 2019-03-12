@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('componentes','Componentes\ComponentesController', ['only'=>['index','store','destroy','delete','show','update']]);
+Route::resource('componentes/config','Componentes\ComponentesConfigController', ['only'=>['index','store','destroy','delete','show','update']]);
+    

@@ -61,14 +61,14 @@
 
 							<div class="form-group mb-lg">
 								<label>Nombre Completo</label>
-								<input name="f011_nombre" type="text" class="form-control input-lg" value="{{old('f011_nombre')}}"/>
+								<input name="f009_nombre" type="text" class="form-control input-lg" value="{{old('f009_nombre')}}"/>
 							</div>
 							@foreach ($errors->get('f011_nombre') as $message)
 								<p class="error">* {{ $message }}</p>
 							@endforeach
 							<div class="form-group mb-lg">
 								<label>Tipo de documento</label>
-								<select class="form-control mb-md" name="f011_tipo_documento" value="{{old('f011_tipo_documento')}}">
+								<select class="form-control mb-md" name="f009_tipo_documento" value="{{old('f009_tipo_documento')}}">
 									<option value="CC">CC</option>
 									<option value="TI">TI</option>
 									<option value="NIT">NIT</option>
@@ -78,7 +78,7 @@
 
 							<div class="form-group mb-lg">
 								<label>No. Documento</label>
-								<input name="f011_documento" type="text" class="form-control input-lg" value="{{old('f011_documento')}}"/>
+								<input name="f009_documento" type="text" class="form-control input-lg" value="{{old('f009_documento')}}"/>
 							</div>
 							@foreach ($errors->get('f011_documento') as $message)
 								<p class="error">* {{ $message }}</p>
@@ -104,7 +104,7 @@
 											<span class="btn btn-default btn-file">
 												<span class="fileupload-exists">Change</span>
 												<span class="fileupload-new">Select file</span>
-												<input type="file" name="f011_imagen" value="{{old('f011_imagen')}}"/>
+												<input type="file" name="f009_imagen" value="{{old('f009_imagen')}}"/>
 											</span>
 											<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
 										</div>

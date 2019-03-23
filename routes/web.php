@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::get('/dashboard', function () {
         return view('dashboard');
-    });
+    })->name('dashboard');
     Route::get('/horarios', function () {
         return view('horarios');
     });

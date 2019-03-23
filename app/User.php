@@ -27,8 +27,7 @@ class User extends Authenticatable
         'email', 
         'password',
         'f009_imagen',
-        'f009_celular',
-        'f009_imagen'
+        'f009_celular'
     ];
 
     /**

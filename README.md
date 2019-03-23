@@ -11,3 +11,9 @@ Repositorio del curso de SENA ADSI 156
 6. Ahora vaya a la consola de comandos de su pc y ubiquese en la carpeta donde va alojar el proyecto y ejecute el siguiente comando "git clone (y pegue el link copiado)" esto bajara el repositorio a su maquina local y podra comenzar a desarrollar.
 
 **...Mucha suerte y que el juego comience...**  
+
+## Iniciar la BD con un usuario base
+1. ejeute el comando 
+```bash
+ php artisan migrate:refresh --seed
+```

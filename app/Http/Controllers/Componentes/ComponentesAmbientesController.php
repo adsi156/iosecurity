@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Componentes;
 
-use App\Componente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ComponentesController extends Controller
+class ComponentesAmbientesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,17 @@ class ComponentesController extends Controller
      */
     public function index()
     {
-        return response()->json(Componente::all());
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,8 +35,7 @@ class ComponentesController extends Controller
      */
     public function store(Request $request)
     {
-        $componente = Componente::create($request->all());
-        return response()->json($componente);
+        //
     }
 
     /**
@@ -36,9 +44,20 @@ class ComponentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Componente $componente)
+    public function show($id)
     {
-        return response()->json($componente);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -48,10 +67,9 @@ class ComponentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Componente $componente)
+    public function update(Request $request, $id)
     {
-        $componente->update($request->all());
-        return response()->json($componente);
+        //
     }
 
     /**
@@ -62,6 +80,6 @@ class ComponentesController extends Controller
      */
     public function destroy($id)
     {
-        $config->delete();
+        //
     }
 }

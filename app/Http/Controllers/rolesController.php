@@ -42,8 +42,8 @@ class rolesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'f007_nombre' => 'required|max:50',
-            'f007_descripcion' => 'max:100'
+            'f006_nombre' => 'required|max:50',
+            'f006_descripcion' => 'max:100'
         ]);
 
         if ($validator->fails()) {

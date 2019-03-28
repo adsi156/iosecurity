@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Componentes;
 
-use App\Componente;
+use App\TipoComponente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ComponentesController extends Controller
+class TiposComponentesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ComponentesController extends Controller
      */
     public function index()
     {
-        return response()->json(Componente::all());
+        return response()->json(TipoComponente::all());
     }
 
     /**
@@ -26,8 +26,8 @@ class ComponentesController extends Controller
      */
     public function store(Request $request)
     {
-        $componente = Componente::create($request->all());
-        return response()->json($componente);
+        $tipoComp = TipoComponente::create($request->all());
+        return response()->json($tipoComp);
     }
 
     /**
@@ -36,9 +36,9 @@ class ComponentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Componente $componente)
+    public function show(TipoComponente $tipoComp)
     {
-        return response()->json($componente);
+        return response()->json($tipoComp);
     }
 
     /**
@@ -48,10 +48,10 @@ class ComponentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Componente $componente)
+    public function update(Request $request, TipoComponente $tipoComp)
     {
-        $componente->update($request->all());
-        return response()->json($componente);
+        $tipoComp->update($request->all());
+        return response()->json($tipoComp);
     }
 
     /**
@@ -60,8 +60,8 @@ class ComponentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TipoComponente $tipoComp)
     {
-        $config->delete();
+        $tipoComp->delete();
     }
 }

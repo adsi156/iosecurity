@@ -37,9 +37,9 @@
                         <div class="col-sm-6">
                             <div class="form-group mb-lg">
                                 <label class="control-label">Nombre:</label>
-                                <input name="f007_nombre" type="text" class="form-control input-lg" value="{{old('f007_nombre')}}" require/>
+                                <input name="f006_nombre" type="text" class="form-control input-lg" value="{{old('f006_nombre')}}" require/>
                             </div>
-                            @foreach ($errors->get('f007_nombre') as $message)
+                            @foreach ($errors->get('f006_nombre') as $message)
                                 <p class="error">* {{ $message }}</p>
                             @endforeach
                         </div>
@@ -51,9 +51,9 @@
                         <div class="col-sm-12">
                             <label class="control-label" >Descripción:</label>
                             <div>
-                                <textarea name="f007_descripcion" class="form-control" rows="3" id="textareaAutosize" data-plugin-textarea-autosize value="{{old('f007_descripcion')}}" require></textarea>
+                                <textarea name="f006_descripcion" class="form-control" rows="3" id="textareaAutosize" data-plugin-textarea-autosize value="{{old('f006_descripcion')}}" require></textarea>
                             </div>
-                            @foreach ($errors->get('f007_descripcion') as $message)
+                            @foreach ($errors->get('f006_descripcion') as $message)
                                 <p class="error">* {{ $message }}</p>
                             @endforeach
                         </div>

@@ -19,7 +19,7 @@ class rolesController extends Controller
         if($request->has("search")){
             $search = $request->search;
         }
-        $roles = rol::where('f007_nombre','like','%'.$search.'%')->get();
+        $roles = rol::where('f006_nombre','like','%'.$search.'%')->get();
         return response()->json($roles);
     }
 
@@ -43,11 +43,11 @@ class rolesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'f006_nombre' => 'required|max:50',
-            'f006_descripcion' => 'max:100'
+            'f006_descripcion' => 'max:100',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(["errores"=>$validator->errors]);
+            return response()->json(["errores"=>$validator->errors()]);
         }else {
             $datos = $request->all();
             $rol = rol::create($datos);
@@ -59,8 +59,8 @@ class rolesController extends Controller
     public function guardar(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'f007_nombre' => 'required|max:50',
-            'f007_descripcion' => 'max:100'
+            'f006_nombre' => 'required|max:50',
+            'f006_descripcion' => 'max:100'
         ]);
 
         if ($validator->fails()) {
@@ -102,9 +102,10 @@ class rolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Rol $role)
     {
-        //
+        $role->update($request->all());
+        return response()->json($role);
     }
 
     /**

@@ -11,6 +11,8 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $table = "t009_usuarios";
+    protected $primaryKey = "f009_id";
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -18,16 +20,14 @@ class User extends Authenticatable
      * @var array
      */
 
-    public $timestamps = false;
-
     protected $fillable = [
-        'f009_tipo_documento',
         'f009_nombre',
+        'f009_tipo_documento',
         'f009_documento', 
         'email', 
         'password',
         'f009_imagen',
-        'f009_celular',
+        'f009_celular'
     ];
 
     /**

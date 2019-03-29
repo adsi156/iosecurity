@@ -3459,6 +3459,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3466,7 +3467,9 @@ __webpack_require__.r(__webpack_exports__);
       descripcion: "",
       rolesTabla: [],
       nombre_new: "",
-      descripcion_new: ""
+      descripcion_new: "",
+      rol_id: null,
+      accion: "Guardar"
     };
   },
   mounted: function mounted() {
@@ -3480,13 +3483,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     guardar: function guardar() {
+      var rol = {
+        f006_nombre: this.nombre_new,
+        f006_descripcion: this.descripcion_new
+      };
+
+      if (this.rol_id != null) {
+        console.log("Va a actualizar");
+        this.actualizarRol(rol, this.rol_id);
+      } else {
+        console.warn("va a crear");
+        this.guardarRol(rol);
+      }
+    },
+    guardarRol: function guardarRol(rol) {
       var _this = this;
 
-      var rol = {
-        f007_nombre: this.nombre_new,
-        f007_descripcion: this.descripcion_new
-      };
-      axios.post('/roles', rol).then(function (res) {
+      axios.post("/roles", rol).then(function (res) {
         var msg = "Guardo satisfactoriamente";
         console.log(msg);
 
@@ -3510,19 +3523,60 @@ __webpack_require__.r(__webpack_exports__);
         _this.descripcion_new = "";
       });
     },
-    borrarRol: function borrarRol(rol) {
+    actualizarRol: function actualizarRol(rol, rol_id) {
       var _this2 = this;
 
-      axios.delete("/roles/" + rol.f007_id).then(function (res) {
-        var mensaje = res.data.msg;
-        console.log("borrarRol: ", mensaje);
+      axios.put("/roles/" + rol_id, rol).then(function (res) {
+        var msg = "Actualizó satisfactoriamente";
+        console.log(msg);
 
         _this2.$message({
-          message: mensaje,
+          message: msg,
           type: "success"
         });
 
         _this2.consultarRoles();
+
+        _this2.cancelar();
+      }).catch(function (err) {
+        var msg = "ocurrio un error al Actualizar";
+        console.error(msg);
+        console.error(err);
+
+        _this2.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this2.nombre_new = "";
+        _this2.descripcion_new = "";
+      });
+    },
+    cancelar: function cancelar() {
+      this.nombre_new = "";
+      this.descripcion_new = "";
+      this.rol_id = null;
+      this.accion = "Guardar";
+    },
+    editarRol: function editarRol(rol) {
+      this.nombre_new = rol.f006_nombre;
+      this.descripcion_new = rol.f006_descripcion;
+      this.rol_id = rol.f006_id;
+      this.accion = "Actualizar";
+    },
+    borrarRol: function borrarRol(rol) {
+      var _this3 = this;
+
+      axios.delete("/roles/" + rol.f006_id).then(function (res) {
+        var mensaje = res.data.msg;
+        console.log("borrarRol: ", mensaje);
+
+        _this3.$message({
+          message: mensaje,
+          type: "success"
+        });
+
+        _this3.consultarRoles();
       }).catch(function (error) {
         console.error(error.data.msg);
       });
@@ -3531,7 +3585,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("se dio clic en el rol:", rol);
     },
     consultarRoles: function consultarRoles() {
-      var _this3 = this;
+      var _this4 = this;
 
       var buscar = this.nombre;
       var data = {
@@ -3540,7 +3594,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.get("/roles", data).then(function (res) {
-        _this3.rolesTabla = res.data;
+        _this4.rolesTabla = res.data;
         console.log("llegaron los datos: ", res.data);
       }).catch(function (err) {
         console.error("Error al consultar la ruta");
@@ -90011,11 +90065,21 @@ var render = function() {
       _c(
         "el-row",
         [
+          _c("br"),
+          _vm._v(" "),
           _c(
             "el-button",
             { attrs: { type: "primary" }, on: { click: _vm.guardar } },
-            [_vm._v("Guardar")]
-          )
+            [_vm._v(_vm._s(_vm.accion))]
+          ),
+          _vm._v(" "),
+          _vm.rol_id != null
+            ? _c(
+                "el-button",
+                { attrs: { type: "danger" }, on: { click: _vm.cancelar } },
+                [_vm._v("Cancelar")]
+              )
+            : _vm._e()
         ],
         1
       ),
@@ -90044,12 +90108,12 @@ var render = function() {
         { staticStyle: { width: "100%" }, attrs: { data: _vm.rolesTabla } },
         [
           _c("el-table-column", {
-            attrs: { prop: "f007_nombre", label: "Nombre", width: "180" }
+            attrs: { prop: "f006_nombre", label: "Nombre", width: "180" }
           }),
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
-              prop: "f007_descripcion",
+              prop: "f006_descripcion",
               label: "Descripcion",
               width: "180"
             }
@@ -90068,11 +90132,11 @@ var render = function() {
                         attrs: { type: "text", size: "small" },
                         on: {
                           click: function($event) {
-                            return _vm.handleClick(scope)
+                            return _vm.editarRol(scope.row)
                           }
                         }
                       },
-                      [_vm._v(_vm._s(scope.row.f007_nombre))]
+                      [_vm._v("Editar")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -102472,8 +102536,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\laragon\www\iosecurity\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! c:\laragon\www\iosecurity\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Proyectos\iosecurity\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Proyectos\iosecurity\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

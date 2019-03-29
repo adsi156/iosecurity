@@ -11,7 +11,6 @@ class Rol extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'f006_id',
         'f006_nombre',
         'f006_descripcion',
     ];

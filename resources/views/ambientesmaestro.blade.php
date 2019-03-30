@@ -1,7 +1,7 @@
 @extends('layout')
 @section('header')
 <header class="page-header">
-    <h2>Maestro de roles</h2>
+    <h2>Ambientes</h2>
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
@@ -9,8 +9,8 @@
                     <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Usuarios</span></li>
-            <li><span>Maestro de roles</span></li>
+            <li><span>Menu</span></li>
+            <li><span>Ambientes</span></li>
         </ol>
 
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -21,19 +21,19 @@
 @section('content')
 <!-- Creación -->
 <div class="row">
-	<div class="col-md-12">       
+	<div class="col-md-12">
 		<section class="panel">
 			<header class="panel-heading">
 				<div class="panel-actions">
 					<a href="#" class="fa fa-caret-down"></a>
 					<!--<a href="#" class="fa fa-times"></a>-->
 				</div>
-				<h2 class="panel-title">Creación de Roles</h2>
+				<h2 class="panel-title">Ambientes Disponibles</h2>
 			</header>
 			<div class="panel-body">
-				<roles-maestro></roles-maestro>
+				<ambientes-maestro></ambientes-maestro>
 			</div>
-        </section>
+		</section>
 	</div>
 </div>
 @stop

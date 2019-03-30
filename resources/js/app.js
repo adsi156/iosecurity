@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('roles-maestro', require('./components/roles_maestro.vue').default);
+Vue.component('ambientes-maestro', require('./components/ambientes_maestro.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -308,13 +308,13 @@
 										</a>
 									</li>
 									<li>
-										<a href="{{url('/sedes')}}">
+										<a href="{{url('/sedescrear')}}">
 											<i class="fa fa-building" aria-hidden="true"></i>
 											<span>Sedes</span>
 										</a>
 									</li>
 									<li>
-										<a href="{{url('/ambientes')}}">
+										<a href="{{url('/ambientescrear')}}">
 											<i class="fa fa-building-o" aria-hidden="true"></i>
 											<span>Ambientes</span>
 										</a>

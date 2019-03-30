@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Ambiente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,10 +14,14 @@ class AmbientesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Ambiente::all());
-        echo "aaaa";
+        $search="";
+        if($request->has("search")){
+            $search = $request->search;
+        }
+        $ambientes = ambiente::where('f005_nombre','like','%'.$search.'%')->get();
+        return response()->json($ambientes);
     }
 
     /**
@@ -37,8 +42,41 @@ class AmbientesController extends Controller
      */
     public function store(Request $request)
     {
-        $ambiente = Ambiente::create($request->all());
-        return response()->json($ambiente);
+        /*$ambiente = Ambiente::create($request->all());
+        return response()->json($ambiente);*/
+
+        $validator = Validator::make($request->all(), [
+            'f005_nombre' => 'required|max:50',
+            'f005_descripcion' => 'max:100',
+            'f005_capacidad' => 'max:10',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errores"=>$validator->errors()]);
+        }else {
+            $datos = $request->all();
+            $ambiente = ambiente::create($datos);
+            return response()->json($ambiente);
+        }
+    }
+
+    public function guardar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'f005_nombre' => 'required|max:50',
+            'f005_descripcion' => 'max:100',
+            'f005_capacidad' => 'max:10',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+            $datos = $request->all();
+            ambiente::create($datos);
+            return redirect('/ambientescrear');
+        }
     }
 
     /**
@@ -85,5 +123,7 @@ class AmbientesController extends Controller
     public function destroy(Ambiente $ambiente)
     {
         $ambiente->delete();
+        $respuesta = ['msg' => 'Se borro Satisfactoriamente'];
+        return response()->json($respuesta,200);
     }
 }

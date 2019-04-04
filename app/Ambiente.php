@@ -11,7 +11,6 @@ class Ambiente extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'f005_id',
         'f005_nombre',
         'f005_descripcion',
         'f005_capacidad',

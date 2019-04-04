@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sede extends Model
 {
-    protected $table = "t004_sedes";
+    protected $table = "t004_sede";
     protected $primaryKey = "f004_id";
     public $timestamps = false;
 

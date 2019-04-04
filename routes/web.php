@@ -35,7 +35,10 @@ Route::post('validar', 'LoginController@authenticate');
 
 Route::middleware(['auth'])->group(function () {
     
+    Route::resource('/sedes','SedesController');
     Route::resource('/roles','rolesController');
+    Route::resource('/ambientes','AmbientesController');
+    /*Route::resource('/componentes', 'ComponentesController');*/
     
     Route::get('/inicio', function () {
         return view('form');
@@ -49,10 +52,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/horarios', function () {
         return view('horarios');
     });
-    Route::get('/ambientes', function () {
-        return view('ambientes');
+    Route::get('/ambientescrear', function () {
+        return view('ambientesmaestro');
     });
-    Route::get('/sedes', function () {
+    Route::get('/sedescrear', function () {
         return view('sedes');
     });
     Route::get('/usuarios', function () {
@@ -64,6 +67,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rolescrear', function () {
         return view('rolesmaestro');
     });
+    Route::get('/componentescrear', function () {
+        return view('componentesmaestro');
+    });
     Route::post('/rolescrear', 'rolesController@store');
+
+    Route::post('/ambientescrear', 'AmbientesController@store');
+
+    /*Route::post('/componentescrear', 'ComponentesController@store');*/
 });
 

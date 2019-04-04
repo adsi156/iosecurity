@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});*/
+});
 
 /*
     Componentes
@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 Route::resource('componentes', 'Componentes\ComponentesController', ['except'=>['create', 'edit']]);
 Route::resource('componentesconsulta', 'componentesApiController', ['only'=>['index']]);
 /*
+<<<<<<< HEAD
     Configuración Componentes
 */
 //Route::resource('componentes/config', 'Componentes\ComponentesConfigController', ['except'=>['create', 'edit']]);
@@ -36,9 +37,12 @@ Route::resource('componentes\tipo', 'Componentes\TiposComponentesController', ['
 Route::resource('ambientes', 'AmbientesController', ['except'=>['create', 'edit']]);
 /*
     Usuarios
+=======
+    Componentes
+>>>>>>> 575db5f3e7fe4036d188f2d4662d87144de85d01
 */
 Route::resource('usuarios', 'UserController', ['only'=>['index', 'show']]);
 /*
     Componentes por Ambiente
 */
-Route::resource('componentesAmbiente', 'Componentes\ComponentesAmbientesController', ['except'=>['create', 'edit']]);
+Route::resource('componentesAmbiente', 'AmbientesApiController', ['only'=>['show']]);

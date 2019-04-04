@@ -43,18 +43,31 @@ class ComponentesConfigController extends Controller
         return response()->json($config);
     }
 
+<<<<<<< HEAD
 
     /**
      * Display the specified resource.
      *
      
+=======
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+>>>>>>> 575db5f3e7fe4036d188f2d4662d87144de85d01
      * @return \Illuminate\Http\Response
      */
     public function consultar()
     {
+<<<<<<< HEAD
         $mensaje = "Hola";
         return response()->json($mensaje);
     }
+=======
+        return response()->json($ambiente);
+    }
+
+>>>>>>> 575db5f3e7fe4036d188f2d4662d87144de85d01
    
     /**
      * Update the specified resource in storage.

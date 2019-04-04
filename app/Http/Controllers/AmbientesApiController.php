@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Sede;
+use App\Componente;
 use Illuminate\Http\Request;
 
-class SedesController extends Controller
+class AmbientesApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search="";
-        if($request->has("search")){
-            $search = $request->search;
-        }
-        $sedes = sede::where('f004_nombre','like','%'.$search.'%')->get();
-        return response()->json($sedes);
+        //
     }
 
     /**
@@ -51,7 +46,8 @@ class SedesController extends Controller
      */
     public function show($id)
     {
-        //
+        $compAmbiente = componente::where('f003_id_ambiente', 'like', '%'.$id.'%')->get();
+        return response()->json(['data' => $compAmbiente], 200);
     }
 
     /**

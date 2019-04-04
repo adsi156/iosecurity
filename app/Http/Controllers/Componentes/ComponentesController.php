@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Componentes;
 
+use Validator;
 use App\Componente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,7 +29,38 @@ class ComponentesController extends Controller
     {
         $componente = Componente::create($request->all());
         return response()->json($componente);
+
+        /*$validator = Validator::make($request->all(), [
+            'f003_descripcion' => 'max:100',
+            'f003_ind_estado' => 'max:10',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errores"=>$validator->errors()]);
+        }else {
+            $datos = $request->all();
+            $componente = componente::create($datos);
+            return response()->json($componente);
+        }*/
     }
+
+    /*public function guardar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'f003_descripcion' => 'max:100',
+            'f003_ind_estado' => 'max:10',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+            $datos = $request->all();
+            componente::create($datos);
+            return redirect('/componentescrear');
+        }
+    }*/
 
     /**
      * Display the specified resource.
@@ -60,8 +92,10 @@ class ComponentesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Componente $componente)
     {
-        $config->delete();
+        $componente->delete();
+        $respuesta = ['msg' => 'Se borro Satisfactoriamente'];
+        return response()->json($respuesta,200);
     }
 }

@@ -14,5 +14,6 @@ class Ambiente extends Model
         'f005_nombre',
         'f005_descripcion',
         'f005_capacidad',
+        'f005_id_sede',
     ];
 }

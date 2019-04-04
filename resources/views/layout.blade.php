@@ -326,7 +326,7 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="{{url('/componentes')}}">
+												<a href="{{url('/componentescrear')}}">
 													 Componentes
 												</a>
 											</li>

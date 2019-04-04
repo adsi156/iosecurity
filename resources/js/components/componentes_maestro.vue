@@ -1,18 +1,24 @@
-<template>
+<!--<template>
   <div>
     <el-row :gutter="20">
       <el-col :span="12">
-        <el-input label="nombre" placeholder="Ingresa el nombre" v-model="nombre_new"></el-input>
+        <el-input label="descripcion" placeholder="Ingresa la descripcion del Componente" v-model="descripcion_new"></el-input>
       </el-col>
       <el-col :span="12">
-        <el-input label="descripcion" placeholder="Ingresa la descripcion" v-model="descripcion_new" ></el-input>
+        <el-input label="" placeholder="Ingresa la descripcion" v-model="descripcion_new" ></el-input>
       </el-col>
     </el-row>
     <br>
     <el-row :gutter="20">
       <el-col :span="12">
-         <label>Ingrese Capacidad del Ambiente:</label>
-         <el-input-number v-model="capacidad_new"  @change="handleChange" :min="1" :max="20"></el-input-number>
+        <el-select v-model="sede_new" placeholder="Selecciona Sede">
+          <el-option
+            v-for="item in sedeList"
+            :key="item.f004_id"
+            :label="item.f004_nombre"
+            :value="item.f004_nombre">
+          </el-option>
+        </el-select>
       </el-col>
       <el-col :span="12">
         <el-select v-model="sede_new" placeholder="Selecciona Sede">
@@ -20,7 +26,7 @@
             v-for="item in sedeList"
             :key="item.f004_id"
             :label="item.f004_nombre"
-            :value="item.f004_id">
+            :value="item.f004_nombre">
           </el-option>
         </el-select>
       </el-col>
@@ -82,7 +88,7 @@ export default {
             f005_nombre: this.nombre_new,
             f005_descripcion: this.descripcion_new,
             f005_capacidad: this.capacidad_new,
-            f005_id_sede: this.sede_new,
+            f005_id_sede: this.sede_new
         };
         if (this.ambiente_id != null){
             console.log("Va a actualizar")
@@ -103,6 +109,7 @@ export default {
                     type: "success"
                 });
                 this.consultarAmbientes();
+                this.consultarSedes();
             })
             .catch(err => {
                 let msg = "Ocurrio un error al guardar";
@@ -115,6 +122,7 @@ export default {
                 this.nombre_new = "";
                 this.descripcion_new = "";
                 this.capacidad_new = 0;
+                this.sede_new = "";
             });
     },
     actualizarAmbiente(ambiente, ambiente_id) {
@@ -128,6 +136,7 @@ export default {
                 type: "success"
             });
             this.consultarAmbientes();
+            this.consultarSedes();
             this.cancelar();
         })
         .catch(err => {
@@ -141,12 +150,14 @@ export default {
             this.nombre_new = "";
             this.descripcion_new = "";
             this.capacidad_new = 0;
+            this.sede_new = "";
         });
     },
     cancelar() {
         this.nombre_new = "";
         this.descripcion_new = "";
         this.capacidad_new = 0;
+        this.sede_new = "";
         this.ambiente_id = null;
         this.accion = "Guardar";
     },
@@ -154,6 +165,7 @@ export default {
         this.nombre_new = ambiente.f005_nombre;
         this.descripcion_new = ambiente.f005_descripcion;
         this.capacidad_new = ambiente.f005_capacidad;
+        this.sede_new = ambiente.f005_id_sede;
         this.ambiente_id = ambiente.f005_id;
         this.accion = "Actualizar";
     },
@@ -168,6 +180,7 @@ export default {
                 type: "success"
             });
             this.consultarAmbientes();
+            this.consultarSedes();
         })
         .catch(error => {
             console.error(error.data.msg);
@@ -212,4 +225,4 @@ export default {
       }
   }
 };
-</script>
+</script>-->

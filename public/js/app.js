@@ -3474,6 +3474,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3505,7 +3506,8 @@ __webpack_require__.r(__webpack_exports__);
       var ambiente = {
         f005_nombre: this.nombre_new,
         f005_descripcion: this.descripcion_new,
-        f005_capacidad: this.capacidad_new
+        f005_capacidad: this.capacidad_new,
+        f005_id_sede: this.sede_new
       };
 
       if (this.ambiente_id != null) {
@@ -90338,7 +90340,7 @@ var render = function() {
                 _vm._l(_vm.sedeList, function(item) {
                   return _c("el-option", {
                     key: item.f004_id,
-                    attrs: { label: item.f004_nombre, value: item.f004_nombre }
+                    attrs: { label: item.f004_nombre, value: item.f004_id }
                   })
                 }),
                 1
@@ -90396,23 +90398,43 @@ var render = function() {
         { staticStyle: { width: "100%" }, attrs: { data: _vm.ambientesTabla } },
         [
           _c("el-table-column", {
-            attrs: { prop: "f005_nombre", label: "Nombre", width: "180" }
+            attrs: {
+              prop: "f005_nombre",
+              label: "Nombre",
+              width: "180",
+              align: "center"
+            }
           }),
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
               prop: "f005_descripcion",
               label: "Descripcion",
-              width: "180"
+              width: "180",
+              align: "center"
             }
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { prop: "f005_capacidad", label: "Capacidad", width: "180" }
+            attrs: {
+              prop: "f005_capacidad",
+              label: "Capacidad",
+              width: "180",
+              align: "center"
+            }
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: "opciones" },
+            attrs: {
+              prop: "f005_id_sede",
+              label: "Sede",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "Opciones" },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -102772,6 +102794,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
 Vue.component('roles-maestro', __webpack_require__(/*! ./components/roles_maestro.vue */ "./resources/js/components/roles_maestro.vue").default);
 Vue.component('ambientes-maestro', __webpack_require__(/*! ./components/ambientes_maestro.vue */ "./resources/js/components/ambientes_maestro.vue").default);
+Vue.component('componentes-maestro', __webpack_require__(/*! ./components/componentes_maestro.vue */ "./resources/js/components/componentes_maestro.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -102980,6 +103003,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ambientes_maestro_vue_vue_type_template_id_ab1d6d0a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/componentes_maestro.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/componentes_maestro.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/componentes_maestro.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 

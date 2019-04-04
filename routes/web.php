@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/sedes','SedesController');
     Route::resource('/roles','rolesController');
     Route::resource('/ambientes','AmbientesController');
+    /*Route::resource('/componentes', 'ComponentesController');*/
     
     Route::get('/inicio', function () {
         return view('form');
@@ -66,8 +67,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rolescrear', function () {
         return view('rolesmaestro');
     });
+    Route::get('/componentescrear', function () {
+        return view('componentesmaestro');
+    });
     Route::post('/rolescrear', 'rolesController@store');
 
     Route::post('/ambientescrear', 'AmbientesController@store');
+
+    /*Route::post('/componentescrear', 'ComponentesController@store');*/
 });
 

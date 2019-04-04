@@ -49,6 +49,7 @@ class AmbientesController extends Controller
             'f005_nombre' => 'required|max:50',
             'f005_descripcion' => 'max:100',
             'f005_capacidad' => 'max:10',
+            'f005_id_sede' => 'max:10'
         ]);
 
         if ($validator->fails()) {
@@ -66,6 +67,7 @@ class AmbientesController extends Controller
             'f005_nombre' => 'required|max:50',
             'f005_descripcion' => 'max:100',
             'f005_capacidad' => 'max:10',
+            'f005_id_sede' => 'max:10'
         ]);
 
         if ($validator->fails()) {

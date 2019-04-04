@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Componentes;
+namespace App\Http\Controllers;
 
-use App\ComponenteConfig;
+use App\Componente;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ComponentesConfigController extends Controller
+class AmbientesApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,19 @@ class ComponentesConfigController extends Controller
      */
     public function index()
     {
-        return response()->json(ComponenteConfig::all());
+        //
     }
 
-  
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -27,9 +35,7 @@ class ComponentesConfigController extends Controller
      */
     public function store(Request $request)
     {
-        $config = ComponenteConfig::create($request->all());
-        return response()->json($config);
-
+        //
     }
 
     /**
@@ -38,23 +44,23 @@ class ComponentesConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ComponenteConfig $config)
+    public function show($id)
     {
-        return response()->json($config);
+        $compAmbiente = componente::where('f003_id_ambiente', 'like', '%'.$id.'%')->get();
+        return response()->json(['data' => $compAmbiente], 200);
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function consultar()
+    public function edit($id)
     {
-        return response()->json($ambiente);
+        //
     }
 
-   
     /**
      * Update the specified resource in storage.
      *
@@ -62,10 +68,9 @@ class ComponentesConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ComponenteConfig $config)
+    public function update(Request $request, $id)
     {
-        $config->update($request->all());
-        return response()->json($config);
+        //
     }
 
     /**
@@ -74,8 +79,8 @@ class ComponentesConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ComponenteConfig $config)
+    public function destroy($id)
     {
-        $config->delete();
+        //
     }
 }

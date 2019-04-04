@@ -11,10 +11,9 @@ class Componente extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'f003_id',
         'f003_descripcion',
         'f003_ind_estado',
-        'f003_id_tipo_componentes',
-        'f003_id_ambientes',
+        'f003_id_tipo_componente',
+        'f003_id_ambiente',
     ];
 }

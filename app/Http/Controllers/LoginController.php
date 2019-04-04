@@ -16,7 +16,7 @@ class LoginController extends Controller
             // $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
-            
+            echo 'aaaaaaaaaaa';
         }else {
             return redirect('login')->with('message', 'Datos incorrectos!');
         }

@@ -14,8 +14,10 @@
     </el-row>
     <el-row>
       <br>
-      <el-button type="primary" @click="guardar">{{accion}}</el-button>
-      <el-button type="danger" v-if="rol_id!=null" @click="cancelar">Cancelar</el-button>
+      <footer class="panel-footer">
+        <el-button type="primary" @click="guardar">{{accion}}</el-button>
+        <el-button type="danger" v-if="rol_id!=null" @click="cancelar">Cancelar</el-button>
+      </footer>
     </el-row>
     <br>
     <el-row>

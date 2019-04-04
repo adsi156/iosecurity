@@ -34,7 +34,11 @@
 
 		<!-- Head Libs -->
 		<script src="assets/vendor/modernizr/modernizr.js"></script>
-
+		<style>
+			.el-upload__input{
+				display: none!important;
+			}
+    	</style>
 	</head>
 	<body>
 		<section class="body">

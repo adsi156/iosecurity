@@ -21,10 +21,11 @@ use Illuminate\Http\Request;
     Componentes
 */
 Route::resource('componentes', 'Componentes\ComponentesController', ['except'=>['create', 'edit']]);
+Route::resource('componentesconsulta', 'componentesApiController', ['only'=>['index']]);
 /*
     Configuración Componentes
 */
-Route::resource('componentes\config', 'Componentes\ComponentesConfigController', ['except'=>['create', 'edit']]);
+//Route::resource('componentes/config', 'Componentes\ComponentesConfigController', ['except'=>['create', 'edit']]);
 /*
     Tipos Componentes
 */

@@ -13,7 +13,6 @@ class Componente extends Model
     protected $fillable = [
         'f003_descripcion',
         'f003_ind_estado',
-        'f003_id_tipo_componente',
         'f003_id_ambiente',
     ];
 }

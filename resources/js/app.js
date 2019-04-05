@@ -26,7 +26,6 @@ Vue.component('comp-usuario', require('./components/comp-usuario.vue').default);
 Vue.component('ambientes-maestro', require('./components/ambientes_maestro.vue').default);
 Vue.component('componentes-maestro', require('./components/componentes_maestro.vue').default);
 
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

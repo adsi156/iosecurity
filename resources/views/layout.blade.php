@@ -306,12 +306,6 @@
 										</ul>
 									</li>
 									<li>
-										<a href="{{url('/horarios')}}">
-											<i class="fa fa-clock-o" aria-hidden="true"></i>
-											<span>Horarios</span>
-										</a>
-									</li>
-									<li>
 										<a href="{{url('/sedescrear')}}">
 											<i class="fa fa-building" aria-hidden="true"></i>
 											<span>Sedes</span>

@@ -33,7 +33,7 @@ Route::resource('componentes\tipo', 'Componentes\TiposComponentesController', ['
 /*
     Ambientes
 */    
-Route::resource('ambientes', 'AmbientesController', ['except'=>['create', 'edit']]);
+Route::resource('ambientesconsulta', 'consultaAmbienteApiController', ['only'=>['index']]);
 /*
     Usuarios
 */

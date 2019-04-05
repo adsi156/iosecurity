@@ -16,7 +16,12 @@ class ComponentesController extends Controller
      */
     public function index()
     {
-        return response()->json(Componente::all());
+        $search="";
+        if($request->has("search")){
+            $search = $request->search;
+        }
+        $componentes = componente::where('f003_nombre','like','%'.$search.'%')->get();
+        return response()->json($componentes);
     }
 
     /**
@@ -27,12 +32,13 @@ class ComponentesController extends Controller
      */
     public function store(Request $request)
     {
-        $componente = Componente::create($request->all());
-        return response()->json($componente);
+        /*$componente = Componente::create($request->all());
+        return response()->json($componente);*/
 
-        /*$validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'f003_descripcion' => 'max:100',
             'f003_ind_estado' => 'max:10',
+            'f003_id_ambiente' => 'max:10',
         ]);
 
         if ($validator->fails()) {
@@ -41,14 +47,15 @@ class ComponentesController extends Controller
             $datos = $request->all();
             $componente = componente::create($datos);
             return response()->json($componente);
-        }*/
+        }
     }
 
-    /*public function guardar(Request $request)
+    public function guardar(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'f003_descripcion' => 'max:100',
             'f003_ind_estado' => 'max:10',
+            'f003_id_ambiente' => 'max:10',
         ]);
 
         if ($validator->fails()) {
@@ -60,7 +67,7 @@ class ComponentesController extends Controller
             componente::create($datos);
             return redirect('/componentescrear');
         }
-    }*/
+    }
 
     /**
      * Display the specified resource.

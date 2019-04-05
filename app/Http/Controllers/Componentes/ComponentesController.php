@@ -14,13 +14,13 @@ class ComponentesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $search="";
         if($request->has("search")){
             $search = $request->search;
         }
-        $componentes = componente::where('f003_nombre','like','%'.$search.'%')->get();
+        $componentes = componente::where('f003_descripcion','like','%'.$search.'%')->get();
         return response()->json($componentes);
     }
 
@@ -38,6 +38,7 @@ class ComponentesController extends Controller
         $validator = Validator::make($request->all(), [
             'f003_descripcion' => 'max:100',
             'f003_ind_estado' => 'max:10',
+            'f003_id_tipo_componente' => 'max:10',
             'f003_id_ambiente' => 'max:10',
         ]);
 
@@ -55,6 +56,7 @@ class ComponentesController extends Controller
         $validator = Validator::make($request->all(), [
             'f003_descripcion' => 'max:100',
             'f003_ind_estado' => 'max:10',
+            'f003_id_tipo_componente' => 'max:10',
             'f003_id_ambiente' => 'max:10',
         ]);
 

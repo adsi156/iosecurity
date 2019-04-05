@@ -13,9 +13,16 @@ class TiposComponentesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(TipoComponente::all());
+        //return response()->json(TipoComponente::all());
+
+        $search="";
+        if($request->has("search")){
+            $search = $request->search;
+        }
+        $tipo = TipoComponente::where('f002_descripcion','like','%'.$search.'%')->get();
+        return response()->json($tipo);
     }
 
     /**

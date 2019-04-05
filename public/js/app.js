@@ -3886,53 +3886,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       nombre: "",
       descripcion: "",
-      capacidad: "",
-      ambientesTabla: [],
-      nombre_new: "",
+      estado: "",
+      componentesTabla: [],
       descripcion_new: "",
-      capacidad_new: 0,
-      sede_new: "",
-      ambiente_id: null,
+      estado_new: true,
+      tipo_new: "",
+      ambiente_new: "",
+      componente_id: null,
       accion: "Guardar",
-      sedeList: []
+      tipoList: [],
+      ambienteList: []
     };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
+    this.consultarComponentes();
     this.consultarAmbientes();
-    this.consultarSedes();
+    this.consultarTipos();
   },
   watch: {
     nombre: function nombre() {
-      this.consultarAmbientes();
+      this.consultarComponentes();
     }
   },
   methods: {
     guardar: function guardar() {
-      var ambiente = {
-        f005_nombre: this.nombre_new,
-        f005_descripcion: this.descripcion_new,
-        f005_capacidad: this.capacidad_new,
-        f005_id_sede: this.sede_new
+      var componente = {
+        f003_descripcion: this.descripcion_new,
+        f003_ind_estado: this.estado_new,
+        f003_id_tipo_componente: this.tipo_new,
+        f003_id_ambiente: this.ambiente_new
       };
 
-      if (this.ambiente_id != null) {
+      if (this.componente_id != null) {
         console.log("Va a actualizar");
-        this.actualizarAmbiente(ambiente, this.ambiente_id);
+        this.actualizarComponente(componente, this.componente_id);
       } else {
         console.warn("Va a crear");
-        this.guardarAmbiente(ambiente);
+        this.guardarComponente(componente);
       }
     },
-    guardarAmbiente: function guardarAmbiente(ambiente) {
+    guardarComponente: function guardarComponente(componente) {
       var _this = this;
 
-      axios.post("/ambientes", ambiente).then(function (res) {
+      axios.post("/componentes", componente).then(function (res) {
         var msg = "Guardo satisfactoriamente";
         console.log(msg);
 
@@ -3941,9 +3950,7 @@ __webpack_require__.r(__webpack_exports__);
           type: "success"
         });
 
-        _this.consultarAmbientes();
-
-        _this.consultarSedes();
+        _this.consultarComponentes();
       }).catch(function (err) {
         var msg = "Ocurrio un error al guardar";
         console.error(msg);
@@ -3954,16 +3961,14 @@ __webpack_require__.r(__webpack_exports__);
           type: "danger"
         });
 
-        _this.nombre_new = "";
         _this.descripcion_new = "";
-        _this.capacidad_new = 0;
-        _this.sede_new = "";
+        _this.estado_new = "";
       });
     },
-    actualizarAmbiente: function actualizarAmbiente(ambiente, ambiente_id) {
+    actualizarComponente: function actualizarComponente(componente, componente_id) {
       var _this2 = this;
 
-      axios.put("/ambientes/" + ambiente_id, ambiente).then(function (res) {
+      axios.put("/componentes/" + componente_id, componente).then(function (res) {
         var msg = "Actualizó satisfactoriamente";
         console.log(msg);
 
@@ -3972,9 +3977,7 @@ __webpack_require__.r(__webpack_exports__);
           type: "success"
         });
 
-        _this2.consultarAmbientes();
-
-        _this2.consultarSedes();
+        _this2.consultarComponentes();
 
         _this2.cancelar();
       }).catch(function (err) {
@@ -3987,59 +3990,51 @@ __webpack_require__.r(__webpack_exports__);
           type: "danger"
         });
 
-        _this2.nombre_new = "";
         _this2.descripcion_new = "";
-        _this2.capacidad_new = 0;
-        _this2.sede_new = "";
+        _this2.estado_new = "";
       });
     },
     cancelar: function cancelar() {
-      this.nombre_new = "";
       this.descripcion_new = "";
-      this.capacidad_new = 0;
-      this.sede_new = "";
-      this.ambiente_id = null;
+      this.estado_new = "";
+      this.componente_id = null;
       this.accion = "Guardar";
     },
-    editarAmbiente: function editarAmbiente(ambiente) {
-      this.nombre_new = ambiente.f005_nombre;
-      this.descripcion_new = ambiente.f005_descripcion;
-      this.capacidad_new = ambiente.f005_capacidad;
-      this.sede_new = ambiente.f005_id_sede;
-      this.ambiente_id = ambiente.f005_id;
+    editarComponente: function editarComponente(componente) {
+      this.descripcion_new = componente.f003_descripcion;
+      this.estado_new = componente.f003_ind_estado;
+      this.componente_id = componente.f003_id;
       this.accion = "Actualizar";
     },
-    borrarAmbiente: function borrarAmbiente(ambiente) {
+    borrarComponente: function borrarComponente(componente) {
       var _this3 = this;
 
-      axios.delete("/ambientes/" + ambiente.f005_id).then(function (res) {
+      axios.delete("/componentes/" + componente.f003_id).then(function (res) {
         var mensaje = res.data.msg;
-        console.log("borrarAmbiente: ", mensaje);
+        console.log("borrarComponente: ", mensaje);
 
         _this3.$message({
           message: mensaje,
           type: "success"
         });
 
-        _this3.consultarAmbientes();
-
-        _this3.consultarSedes();
+        _this3.consultarComponentes();
       }).catch(function (error) {
         console.error(error.data.msg);
       });
     },
-    handleClick: function handleClick(ambiente) {
-      console.log("Se dio clic en el ambiente: ", ambiente);
+    handleClick: function handleClick(componente) {
+      console.log("Se dio clic en el componente: ", componente);
     },
     handleChange: function handleChange(value) {
       console.log(value);
     },
-    consultarSedes: function consultarSedes() {
+    consultarTipos: function consultarTipos() {
       var _this4 = this;
 
       var data = {};
-      axios.get("/sedes", data).then(function (res) {
-        _this4.sedeList = res.data;
+      axios.get("/tipoComponente", data).then(function (res) {
+        _this4.tipoList = res.data;
         console.log("llegaron los datos: ", res.data);
       }).catch(function (err) {
         console.error("Error al consultar la ruta");
@@ -4049,14 +4044,26 @@ __webpack_require__.r(__webpack_exports__);
     consultarAmbientes: function consultarAmbientes() {
       var _this5 = this;
 
+      var data = {};
+      axios.get("/ambientes", data).then(function (res) {
+        _this5.ambienteList = res.data;
+        console.log("llegaron los datos: ", res.data);
+      }).catch(function (err) {
+        console.error("Error al consultar la ruta");
+        console.error(err);
+      });
+    },
+    consultarComponentes: function consultarComponentes() {
+      var _this6 = this;
+
       var buscar = this.nombre;
       var data = {
         params: {
           search: buscar
         }
       };
-      axios.get("/ambientes", data).then(function (res) {
-        _this5.ambientesTabla = res.data;
+      axios.get("/componentes", data).then(function (res) {
+        _this6.componentesTabla = res.data;
         console.log("llegaron los datos: ", res.data);
       }).catch(function (err) {
         console.error("Error al consultar la ruta");
@@ -91265,14 +91272,20 @@ var render = function() {
             "el-col",
             { attrs: { span: 12 } },
             [
-              _c("el-input", {
-                attrs: { label: "", placeholder: "Ingresa la descripcion" },
+              _c("el-switch", {
+                staticStyle: { display: "block" },
+                attrs: {
+                  "active-color": "#13ce66",
+                  "inactive-color": "#ff4949",
+                  "active-text": "Encendido",
+                  "inactive-text": "Apagado"
+                },
                 model: {
-                  value: _vm.descripcion_new,
+                  value: _vm.estado_new,
                   callback: function($$v) {
-                    _vm.descripcion_new = $$v
+                    _vm.estado_new = $$v
                   },
-                  expression: "descripcion_new"
+                  expression: "estado_new"
                 }
               })
             ],
@@ -91295,19 +91308,19 @@ var render = function() {
               _c(
                 "el-select",
                 {
-                  attrs: { placeholder: "Selecciona Sede" },
+                  attrs: { placeholder: "Tipo de Componente" },
                   model: {
-                    value: _vm.sede_new,
+                    value: _vm.tipo_new,
                     callback: function($$v) {
-                      _vm.sede_new = $$v
+                      _vm.tipo_new = $$v
                     },
-                    expression: "sede_new"
+                    expression: "tipo_new"
                   }
                 },
-                _vm._l(_vm.sedeList, function(item) {
+                _vm._l(_vm.tipoList, function(item) {
                   return _c("el-option", {
-                    key: item.f004_id,
-                    attrs: { label: item.f004_nombre, value: item.f004_nombre }
+                    key: item.f002_id,
+                    attrs: { label: item.f002_descripcion, value: item.f002_id }
                   })
                 }),
                 1
@@ -91323,19 +91336,19 @@ var render = function() {
               _c(
                 "el-select",
                 {
-                  attrs: { placeholder: "Selecciona Sede" },
+                  attrs: { placeholder: "Ambiente al que pertenece" },
                   model: {
-                    value: _vm.sede_new,
+                    value: _vm.ambiente_new,
                     callback: function($$v) {
-                      _vm.sede_new = $$v
+                      _vm.ambiente_new = $$v
                     },
-                    expression: "sede_new"
+                    expression: "ambiente_new"
                   }
                 },
-                _vm._l(_vm.sedeList, function(item) {
+                _vm._l(_vm.ambienteList, function(item) {
                   return _c("el-option", {
-                    key: item.f004_id,
-                    attrs: { label: item.f004_nombre, value: item.f004_nombre }
+                    key: item.f005_id,
+                    attrs: { label: item.f005_nombre, value: item.f005_id }
                   })
                 }),
                 1
@@ -91358,7 +91371,7 @@ var render = function() {
             [_vm._v(_vm._s(_vm.accion))]
           ),
           _vm._v(" "),
-          _vm.ambiente_id != null
+          _vm.componente_id != null
             ? _c(
                 "el-button",
                 { attrs: { type: "danger" }, on: { click: _vm.cancelar } },
@@ -91390,20 +91403,14 @@ var render = function() {
       _vm._v(" "),
       _c(
         "el-table",
-        { staticStyle: { width: "100%" }, attrs: { data: _vm.ambientesTabla } },
+        {
+          staticStyle: { width: "100%" },
+          attrs: { data: _vm.componentesTabla }
+        },
         [
           _c("el-table-column", {
             attrs: {
-              prop: "f005_nombre",
-              label: "Nombre",
-              width: "180",
-              align: "center"
-            }
-          }),
-          _vm._v(" "),
-          _c("el-table-column", {
-            attrs: {
-              prop: "f005_descripcion",
+              prop: "f003_descripcion",
               label: "Descripcion",
               width: "180",
               align: "center"
@@ -91412,8 +91419,8 @@ var render = function() {
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
-              prop: "f005_capacidad",
-              label: "Capacidad",
+              prop: "f003_ind_estado",
+              label: "Estado",
               width: "180",
               align: "center"
             }
@@ -91421,8 +91428,17 @@ var render = function() {
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
-              prop: "f005_id_sede",
-              label: "Sede",
+              prop: "f003_id_tipo_componente",
+              label: "Tipo",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f003_id_ambiente",
+              label: "Ambiente",
               width: "180",
               align: "center"
             }
@@ -91441,7 +91457,7 @@ var render = function() {
                         attrs: { type: "text", size: "small" },
                         on: {
                           click: function($event) {
-                            return _vm.editarAmbiente(scope.row)
+                            return _vm.editarComponente(scope.row)
                           }
                         }
                       },
@@ -91454,7 +91470,7 @@ var render = function() {
                         attrs: { type: "text", size: "small" },
                         on: {
                           click: function($event) {
-                            return _vm.borrarAmbiente(scope.row)
+                            return _vm.borrarComponente(scope.row)
                           }
                         }
                       },

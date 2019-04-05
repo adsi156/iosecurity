@@ -5,28 +5,35 @@
         <el-input label="descripcion" placeholder="Ingresa la descripcion del Componente" v-model="descripcion_new"></el-input>
       </el-col>
       <el-col :span="12">
-        <el-input label="" placeholder="Ingresa la descripcion" v-model="descripcion_new" ></el-input>
+        <el-switch
+          style="display: block"
+          v-model="estado_new"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="Encendido"
+          inactive-text="Apagado">
+        </el-switch>
       </el-col>
     </el-row>
     <br>
     <el-row :gutter="20">
       <el-col :span="12">
-        <el-select v-model="sede_new" placeholder="Selecciona Sede">
+        <el-select v-model="tipo_new" placeholder="Tipo de Componente">
           <el-option
-            v-for="item in sedeList"
-            :key="item.f004_id"
-            :label="item.f004_nombre"
-            :value="item.f004_nombre">
+            v-for="item in tipoList"
+            :key="item.f002_id"
+            :label="item.f002_descripcion"
+            :value="item.f002_id">
           </el-option>
         </el-select>
       </el-col>
       <el-col :span="12">
-        <el-select v-model="sede_new" placeholder="Selecciona Sede">
+        <el-select v-model="ambiente_new" placeholder="Ambiente al que pertenece">
           <el-option
-            v-for="item in sedeList"
-            :key="item.f004_id"
-            :label="item.f004_nombre"
-            :value="item.f004_nombre">
+            v-for="item in ambienteList"
+            :key="item.f005_id"
+            :label="item.f005_nombre"
+            :value="item.f005_id">
           </el-option>
         </el-select>
       </el-col>
@@ -34,21 +41,21 @@
     <el-row>
       <br>
       <el-button type="primary" @click="guardar">{{accion}}</el-button>
-      <el-button type="danger" v-if="ambiente_id!=null" @click="cancelar">Cancelar</el-button>
+      <el-button type="danger" v-if="componente_id!=null" @click="cancelar">Cancelar</el-button>
     </el-row>
     <br>
     <el-row>
       <el-input placeholder="Please input" v-model="nombre"></el-input>
     </el-row>
-    <el-table :data="ambientesTabla" style="width: 100%">
-      <el-table-column prop="f005_nombre" label="Nombre" width="180" align="center"></el-table-column>
-      <el-table-column prop="f005_descripcion" label="Descripcion" width="180" align="center"></el-table-column>
-      <el-table-column prop="f005_capacidad" label="Capacidad" width="180" align="center"></el-table-column>
-      <el-table-column prop="f005_id_sede" label="Sede" width="180" align="center"></el-table-column>
+    <el-table :data="componentesTabla" style="width: 100%">
+      <el-table-column prop="f003_descripcion" label="Descripcion" width="180" align="center"></el-table-column>
+      <el-table-column prop="f003_ind_estado" label="Estado" width="180" align="center"></el-table-column>
+      <el-table-column prop="f003_id_tipo_componente" label="Tipo" width="180" align="center"></el-table-column>
+      <el-table-column prop="f003_id_ambiente" label="Ambiente" width="180" align="center"></el-table-column>
       <el-table-column label="Opciones">
         <template slot-scope="scope">
-          <el-button @click="editarAmbiente(scope.row)" type="text" size="small">Editar</el-button>
-          <el-button @click="borrarAmbiente(scope.row)" type="text" size="small">Borrar</el-button>
+          <el-button @click="editarComponente(scope.row)" type="text" size="small">Editar</el-button>
+          <el-button @click="borrarComponente(scope.row)" type="text" size="small">Borrar</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,46 +68,48 @@ export default {
     return {
       nombre: "",
       descripcion: "",
-      capacidad: "",
-      ambientesTabla: [],
-      nombre_new: "",
+      estado: "",
+      componentesTabla: [],
       descripcion_new: "",
-      capacidad_new: 0,
-      sede_new: "",
-      ambiente_id: null,
+      estado_new: true,
+      tipo_new: "",
+      ambiente_new: "",
+      componente_id: null,
       accion: "Guardar",
-      sedeList: []
+      tipoList: [],
+      ambienteList: []
     };
   },
   mounted() {
       console.log('Component mounted.');
+      this.consultarComponentes();
       this.consultarAmbientes();
-      this.consultarSedes();
+      this.consultarTipos();
     },
   watch: {
     nombre() {
-      this.consultarAmbientes();
+      this.consultarComponentes();
     }
   },
   methods: {
     guardar() {
-        let ambiente = {
-            f005_nombre: this.nombre_new,
-            f005_descripcion: this.descripcion_new,
-            f005_capacidad: this.capacidad_new,
-            f005_id_sede: this.sede_new
+        let componente = {
+            f003_descripcion: this.descripcion_new,
+            f003_ind_estado: this.estado_new,
+            f003_id_tipo_componente: this.tipo_new,
+            f003_id_ambiente: this.ambiente_new
         };
-        if (this.ambiente_id != null){
+        if (this.componente_id != null){
             console.log("Va a actualizar")
-            this.actualizarAmbiente(ambiente, this.ambiente_id)
+            this.actualizarComponente(componente, this.componente_id)
         }else{
             console.warn("Va a crear")
-            this.guardarAmbiente(ambiente);
+            this.guardarComponente(componente);
         }
     },
-    guardarAmbiente(ambiente) {
+    guardarComponente(componente) {
         axios
-            .post("/ambientes", ambiente)
+            .post("/componentes", componente)
             .then(res => {
                 let msg = "Guardo satisfactoriamente";
                 console.log(msg);
@@ -108,8 +117,7 @@ export default {
                     message: msg,
                     type: "success"
                 });
-                this.consultarAmbientes();
-                this.consultarSedes();
+                this.consultarComponentes();
             })
             .catch(err => {
                 let msg = "Ocurrio un error al guardar";
@@ -119,15 +127,13 @@ export default {
                     message: msg,
                     type: "danger"
                 });
-                this.nombre_new = "";
                 this.descripcion_new = "";
-                this.capacidad_new = 0;
-                this.sede_new = "";
+                this.estado_new = "";
             });
     },
-    actualizarAmbiente(ambiente, ambiente_id) {
+    actualizarComponente(componente, componente_id) {
         axios
-        .put("/ambientes/"+ambiente_id, ambiente)
+        .put("/componentes/"+componente_id, componente)
         .then(res => {
             let msg = "Actualizó satisfactoriamente";
             console.log(msg);
@@ -135,8 +141,7 @@ export default {
                 message: msg,
                 type: "success"
             });
-            this.consultarAmbientes();
-            this.consultarSedes();
+            this.consultarComponentes();
             this.cancelar();
         })
         .catch(err => {
@@ -147,57 +152,50 @@ export default {
                 message: msg,
                 type: "danger"
             });
-            this.nombre_new = "";
             this.descripcion_new = "";
-            this.capacidad_new = 0;
-            this.sede_new = "";
+            this.estado_new = "";
         });
     },
     cancelar() {
-        this.nombre_new = "";
         this.descripcion_new = "";
-        this.capacidad_new = 0;
-        this.sede_new = "";
-        this.ambiente_id = null;
+        this.estado_new = "";
+        this.componente_id = null;
         this.accion = "Guardar";
     },
-    editarAmbiente(ambiente) {
-        this.nombre_new = ambiente.f005_nombre;
-        this.descripcion_new = ambiente.f005_descripcion;
-        this.capacidad_new = ambiente.f005_capacidad;
-        this.sede_new = ambiente.f005_id_sede;
-        this.ambiente_id = ambiente.f005_id;
+    editarComponente(componente) {
+        this.descripcion_new = componente.f003_descripcion;
+        this.estado_new = componente.f003_ind_estado;
+        this.componente_id = componente.f003_id;
         this.accion = "Actualizar";
     },
-    borrarAmbiente(ambiente) {
+    borrarComponente(componente) {
         axios
-        .delete("/ambientes/" + ambiente.f005_id)
+        .delete("/componentes/" + componente.f003_id)
         .then(res => {
             let mensaje = res.data.msg;
-            console.log("borrarAmbiente: ", mensaje);
+            console.log("borrarComponente: ", mensaje);
             this.$message({
                 message: mensaje,
                 type: "success"
             });
-            this.consultarAmbientes();
-            this.consultarSedes();
+            this.consultarComponentes();
         })
         .catch(error => {
             console.error(error.data.msg);
         });
     },
-    handleClick(ambiente) {
-        console.log("Se dio clic en el ambiente: ", ambiente);
+    handleClick(componente) {
+        console.log("Se dio clic en el componente: ", componente);
     },
     handleChange(value) {
         console.log(value)
     },
-    consultarSedes() {
+    consultarTipos() {
       let data = {};
       axios
-      .get("/sedes", data)
+      .get("/tipoComponente", data)
       .then(res => {
-        this.sedeList = res.data;
+        this.tipoList = res.data;
         console.log("llegaron los datos: ", res.data);
         })
         .catch(err => {
@@ -206,6 +204,19 @@ export default {
         });
       },
     consultarAmbientes() {
+      let data = {};
+      axios
+      .get("/ambientes", data)
+      .then(res => {
+        this.ambienteList = res.data;
+        console.log("llegaron los datos: ", res.data);
+        })
+        .catch(err => {
+          console.error("Error al consultar la ruta");
+          console.error(err);
+        });
+      },
+    consultarComponentes() {
       let buscar = this.nombre;
       let data = {
         params: {
@@ -213,9 +224,9 @@ export default {
         }
       };
       axios
-        .get("/ambientes", data)
+        .get("/componentes", data)
         .then(res => {
-          this.ambientesTabla = res.data;
+          this.componentesTabla = res.data;
           console.log("llegaron los datos: ", res.data);
         })
         .catch(err => {

@@ -11,7 +11,6 @@ class TipoComponente extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'f002_id',
         'f002_descripcion',
         'f002_id_propiedades',
     ];

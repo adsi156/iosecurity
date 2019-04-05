@@ -3764,6 +3764,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log('Component mounted.');
+
     this.consultarRoles();
   },
   methods: {
@@ -4069,6 +4070,180 @@ __webpack_require__.r(__webpack_exports__);
         console.error("Error al consultar la ruta");
         console.error(err);
       });
+
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-usuario.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/comp-usuario.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      accion: "Guardar",
+      nombre: null,
+      nombre_new: '',
+      celular_new: "",
+      tipo_docto_new: "",
+      password_new: "",
+      password_conf_new: "",
+      imagen_new: "",
+      rol_new: "",
+      options: [{
+        value: 'CC',
+        label: 'CC'
+      }, {
+        value: 'NIT',
+        label: 'NIT'
+      }, {
+        value: 'TI',
+        label: 'TI'
+      }, {
+        value: 'CE',
+        label: 'CE'
+      }],
+      fileList: [],
+      rolesList: []
+    };
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+    this.consultarRoles();
+  },
+  methods: {
+    guardar: function guardar() {
+      var usuario = {
+        f009_nombre: this.nombre_new,
+        f009_documento: this.do,
+        f009_tipo_documento: this.tipo_docto_new
+      };
+
+      if (this.rol_id != null) {
+        console.log("Va a actualizar");
+        this.actualizarRol(rol, this.rol_id);
+      } else {
+        console.warn("va a crear");
+        this.guardarRol(rol);
+      }
+    },
+    handleRemove: function handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview: function handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed: function handleExceed(files, fileList) {
+      this.$message.warning("El l\xEDmite es 1, haz seleccionado ".concat(files.length, " archivos esta vez, a\xF1ade hasta ").concat(files.length + fileList.length));
+    },
+    consultarRoles: function consultarRoles() {
+      var _this = this;
+
+      var data = {};
+      axios.get("/roles", data).then(function (res) {
+        _this.rolesList = res.data;
+        console.log("llegaron los datos: ", res.data);
+      }).catch(function (err) {
+        console.error("Error al consultar la ruta");
+        console.error(err);
+      });
+    }
+  },
+  watch: {
+    calular: function calular() {
+      alert("Hola");
+      var valorAnterior = value;
+
+      if (!Number.isInteger(value)) {
+        this.celular = 855888;
+      }
+
+      this.celular = 855888;
     }
   }
 });

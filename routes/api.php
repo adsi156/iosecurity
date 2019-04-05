@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Componentes
 */
 Route::resource('componentes', 'Componentes\ComponentesController', ['except'=>['create', 'edit']]);
-Route::resource('componentesconsulta', 'componentesApiController', ['only'=>['index']]);
+Route::resource('componentesconsulta', 'componentesApiController', ['only'=>['show','index']]);
 /*
     Configuración Componentes
 */

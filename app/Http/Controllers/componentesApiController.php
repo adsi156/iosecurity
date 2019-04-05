@@ -47,7 +47,10 @@ class componentesApiController extends Controller
      */
     public function show($id)
     {
-        return response()->json($id);
+        $estadoCompAmbiente = componente::select('f003_id','f003_ind_estado')
+                                        ->where('f003_id_ambiente','=',$id)
+                                        ->get();
+        return response()->json($estadoCompAmbiente);
     }
 
     /**

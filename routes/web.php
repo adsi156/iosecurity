@@ -16,11 +16,9 @@ Route::get('/', function () {
     // Auth::logout();
 
     if(Auth::check()){
-        echo "---";
-        echo "<pre>";
-        print_r(Auth::user());
+        return view('dashboard');
     }else{
-        echo "...";
+        return view('login');
     }
     // return view('login');
 });

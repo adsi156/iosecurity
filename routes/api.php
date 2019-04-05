@@ -23,7 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('componentes', 'Componentes\ComponentesController', ['except'=>['create', 'edit']]);
 Route::resource('componentesconsulta', 'componentesApiController', ['only'=>['index']]);
 /*
-<<<<<<< HEAD
     Configuración Componentes
 */
 //Route::resource('componentes/config', 'Componentes\ComponentesConfigController', ['except'=>['create', 'edit']]);
@@ -34,12 +33,9 @@ Route::resource('componentes\tipo', 'Componentes\TiposComponentesController', ['
 /*
     Ambientes
 */    
-Route::resource('ambientes', 'AmbientesController', ['except'=>['create', 'edit']]);
+Route::resource('ambientesconsulta', 'consultaAmbienteApiController', ['only'=>['index']]);
 /*
     Usuarios
-=======
-    Componentes
->>>>>>> 575db5f3e7fe4036d188f2d4662d87144de85d01
 */
 Route::resource('usuarios', 'UserController', ['only'=>['index', 'show']]);
 /*

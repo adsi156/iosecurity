@@ -1,4 +1,4 @@
-<!--<template>
+<template>
   <div>
     <el-row :gutter="20">
       <el-col :span="12">
@@ -225,4 +225,4 @@ export default {
       }
   }
 };
-</script>-->
+</script>

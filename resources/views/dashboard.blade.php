@@ -2,7 +2,7 @@
 @section('header')
 @csrf
 <header class="page-header">
-    <h2>Panel de control</h2>
+    <h2>Bienvenido a IOSecurity</h2>
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
@@ -10,8 +10,8 @@
                     <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Pages</span></li>
-            <li><span>Horarios</span></li>
+            <li><span>Inicio</span></li>
+            <li><span>IOSecurity</span></li>
         </ol>
 
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>

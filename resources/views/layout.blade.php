@@ -59,7 +59,7 @@
 			
 					<form action="pages-search-results.html" class="search nav-form">
 						<div class="input-group input-search">
-							<input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+							<input type="text" class="form-control" name="q" id="q" placeholder="Buscar...">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 							</span>
@@ -78,14 +78,14 @@
 							<div class="dropdown-menu notification-menu large">
 								<div class="notification-title">
 									<span class="pull-right label label-default">3</span>
-									Tasks
+									Pendientes
 								</div>
 			
 								<div class="content">
 									<ul>
 										<li>
 											<p class="clearfix mb-xs">
-												<span class="message pull-left">Generating Sales Report</span>
+												<span class="message pull-left">Generando reporte de eventos...</span>
 												<span class="message pull-right text-dark">60%</span>
 											</p>
 											<div class="progress progress-xs light">
@@ -95,7 +95,7 @@
 			
 										<li>
 											<p class="clearfix mb-xs">
-												<span class="message pull-left">Importing Contacts</span>
+												<span class="message pull-left">Importando configuraciones pendientes...</span>
 												<span class="message pull-right text-dark">98%</span>
 											</p>
 											<div class="progress progress-xs light">
@@ -105,7 +105,7 @@
 			
 										<li>
 											<p class="clearfix mb-xs">
-												<span class="message pull-left">Uploading something big</span>
+												<span class="message pull-left">Verificando validaciones de seguridad...</span>
 												<span class="message pull-right text-dark">33%</span>
 											</p>
 											<div class="progress progress-xs light mb-xs">
@@ -124,8 +124,8 @@
 			
 							<div class="dropdown-menu notification-menu">
 								<div class="notification-title">
-									<span class="pull-right label label-default">230</span>
-									Messages
+									<span class="pull-right label label-default">21</span>
+									Mensajes
 								</div>
 			
 								<div class="content">
@@ -135,35 +135,35 @@
 												<figure class="image">
 													<img src="assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle" />
 												</figure>
-												<span class="title">Joseph Doe</span>
-												<span class="message">Lorem ipsum dolor sit.</span>
+												<span class="title">Cristhian Gil</span>
+												<span class="message">2 Mensajes sin leer</span>
 											</a>
 										</li>
 										<li>
 											<a href="#" class="clearfix">
 												<figure class="image">
-													<img src="assets/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" />
+													<img src="assets/images/!sample-user-1.jpg" alt="Joseph Junior" class="img-circle" />
 												</figure>
-												<span class="title">Joseph Junior</span>
-												<span class="message truncate">Truncated message. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac tincidunt. Quisque eget convallis diam, nec venenatis risus. Vestibulum blandit faucibus est et malesuada. Sed interdum cursus dui nec venenatis. Pellentesque non nisi lobortis, rutrum eros ut, convallis nisi. Sed tellus turpis, dignissim sit amet tristique quis, pretium id est. Sed aliquam diam diam, sit amet faucibus tellus ultricies eu. Aliquam lacinia nibh a metus bibendum, eu commodo eros commodo. Sed commodo molestie elit, a molestie lacus porttitor id. Donec facilisis varius sapien, ac fringilla velit porttitor et. Nam tincidunt gravida dui, sed pharetra odio pharetra nec. Duis consectetur venenatis pharetra. Vestibulum egestas nisi quis elementum elementum.</span>
+												<span class="title">Roldan Hurtado</span>
+												<span class="message truncate">1 Mensaje sin leer</span>
 											</a>
 										</li>
 										<li>
 											<a href="#" class="clearfix">
 												<figure class="image">
-													<img src="assets/images/!sample-user.jpg" alt="Joe Junior" class="img-circle" />
+													<img src="assets/images/!sample-user-2.jpg" alt="Joe Junior" class="img-circle" />
 												</figure>
-												<span class="title">Joe Junior</span>
-												<span class="message">Lorem ipsum dolor sit.</span>
+												<span class="title">Dpto. Soporte</span>
+												<span class="message">4 Mensajes sin leer</span>
 											</a>
 										</li>
 										<li>
 											<a href="#" class="clearfix">
 												<figure class="image">
-													<img src="assets/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" />
+													<img src="assets/images/!sample-user-3.jpg" alt="Joseph Junior" class="img-circle" />
 												</figure>
-												<span class="title">Joseph Junior</span>
-												<span class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac tincidunt. Quisque eget convallis diam.</span>
+												<span class="title">Cristian Uribe</span>
+												<span class="message">1 Mensaje sin leer</span>
 											</a>
 										</li>
 									</ul>
@@ -171,7 +171,7 @@
 									<hr />
 			
 									<div class="text-right">
-										<a href="#" class="view-more">View All</a>
+										<a href="#" class="view-more">Ver todo</a>
 									</div>
 								</div>
 							</div>
@@ -185,7 +185,7 @@
 							<div class="dropdown-menu notification-menu">
 								<div class="notification-title">
 									<span class="pull-right label label-default">3</span>
-									Alerts
+									Alertas
 								</div>
 			
 								<div class="content">
@@ -195,8 +195,8 @@
 												<div class="image">
 													<i class="fa fa-thumbs-down bg-danger"></i>
 												</div>
-												<span class="title">Server is Down!</span>
-												<span class="message">Just now</span>
+												<span class="title">Intento de acceso!</span>
+												<span class="message">Hace un momento</span>
 											</a>
 										</li>
 										<li>
@@ -204,8 +204,8 @@
 												<div class="image">
 													<i class="fa fa-lock bg-warning"></i>
 												</div>
-												<span class="title">User Locked</span>
-												<span class="message">15 minutes ago</span>
+												<span class="title">Revisión de Seguridad</span>
+												<span class="message">Hace 15 minutos</span>
 											</a>
 										</li>
 										<li>
@@ -213,8 +213,8 @@
 												<div class="image">
 													<i class="fa fa-signal bg-success"></i>
 												</div>
-												<span class="title">Connection Restaured</span>
-												<span class="message">10/10/2014</span>
+												<span class="title">Conexión Restablecida</span>
+												<span class="message">08/04/2019</span>
 											</a>
 										</li>
 									</ul>
@@ -222,7 +222,7 @@
 									<hr />
 			
 									<div class="text-right">
-										<a href="#" class="view-more">View All</a>
+										<a href="#" class="view-more">Ver todo</a>
 									</div>
 								</div>
 							</div>
@@ -237,8 +237,8 @@
 								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name">John Doe Junior</span>
-								<span class="role">administrator</span>
+								<span class="name">Bienvenido de nuevo!</span>
+								<span class="role">Administrador</span>
 							</div>
 			
 							<i class="fa custom-caret"></i>
@@ -248,13 +248,13 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i>Mi Perfil</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i>Configuración de Privacidad</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i>Cerrar Sesión</a>
 								</li>
 							</ul>
 						</div>
@@ -270,7 +270,7 @@
 				
 					<div class="sidebar-header">
 						<div class="sidebar-title">
-							Navigation
+							IO-Menú
 						</div>
 						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -342,14 +342,14 @@
 				
 							<div class="sidebar-widget widget-tasks">
 								<div class="widget-header">
-									<h6>Projects</h6>
+									<h6>IO-Servicios</h6>
 									<div class="widget-toggle">+</div>
 								</div>
 								<div class="widget-content">
 									<ul class="list-unstyled m-none">
-										<li><a href="#">Porto HTML5 Template</a></li>
-										<li><a href="#">Tucson Template</a></li>
-										<li><a href="#">Porto Admin</a></li>
+										<li><a href="#">Seguridad Domótica</a></li>
+										<li><a href="#">Canales de Información</a></li>
+										<li><a href="#">Contáctenos</a></li>
 									</ul>
 								</div>
 							</div>
@@ -406,7 +406,7 @@
 											<img src="assets/images/!sample-user.jpg" alt="Joseph Doe" class="img-circle">
 										</figure>
 										<div class="profile-info">
-											<span class="name">Joseph Doe Junior</span>
+											<span class="name">Bienvenido de Nuevo!</span>
 											<span class="title">Hey, how are you?</span>
 										</div>
 									</li>

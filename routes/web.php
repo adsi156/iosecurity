@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/ambientes','AmbientesController');
     Route::resource('/tipoComponente','Componentes\TiposComponentesController');
     Route::resource('/componentes', 'Componentes\ComponentesController');
+    Route::resource('/configcomponentes', 'Componentes\ComponentesConfigController');
     
     Route::get('/inicio', function () {
         return view('form');
@@ -69,10 +70,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/componentescrear', function () {
         return view('componentesmaestro');
     });
+    Route::get('/configcomponentescrear', function () {
+        return view('configcomponentesmaestro');
+    });
     Route::post('/rolescrear', 'rolesController@store');
 
     Route::post('/ambientescrear', 'AmbientesController@store');
 
     Route::post('/componentescrear', 'Componentes\ComponentesController@store');
+
+    Route::post('/configcomponentescrear', 'Componentes\ComponentesConfigController@store');
 });
 

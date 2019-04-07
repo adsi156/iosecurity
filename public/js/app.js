@@ -4075,6 +4075,263 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/configcomponentes_maestro.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/configcomponentes_maestro.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      nombre: "",
+      descripcion: "",
+      valor: "",
+      temperatura: "",
+      configuracionTabla: [],
+      nombre_new: "",
+      descripcion_new: "",
+      valor_new: true,
+      temp_new: 0,
+      componente_new: "",
+      config_id: null,
+      accion: "Guardar",
+      componenteList: []
+    };
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+    this.consultarConfiguracion();
+    this.consultarComponentes();
+  },
+  watch: {
+    nombre: function nombre() {
+      this.consultarConfiguracion();
+    }
+  },
+  methods: {
+    guardar: function guardar() {
+      var configuracion = {
+        f007_nombre: this.nombre_new,
+        f007_descripcion: this.descripcion_new,
+        f007_valor_on_off: this.valor_new,
+        f007_valor_temp: this.temp_new,
+        f007_id_componente: this.componente_new
+      };
+
+      if (this.config_id != null) {
+        console.log("Va a actualizar");
+        this.actualizarConfiguracion(configuracion, this.config_id);
+      } else {
+        console.warn("Va a crear");
+        this.guardarConfiguracion(configuracion);
+      }
+    },
+    guardarConfiguracion: function guardarConfiguracion(configuracion) {
+      var _this = this;
+
+      axios.post("/configcomponentes", configuracion).then(function (res) {
+        var msg = "Guardo satisfactoriamente";
+        console.log(msg);
+
+        _this.$message({
+          message: msg,
+          type: "success"
+        });
+
+        _this.consultarConfiguracion();
+      }).catch(function (err) {
+        var msg = "Ocurrio un error al guardar";
+        console.error(msg);
+        console.error(err);
+
+        _this.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this.nombre_new = "";
+        _this.descripcion_new = "";
+        _this.valor_new = "";
+        _this.temp_new = 0;
+      });
+    },
+    actualizarConfiguracion: function actualizarConfiguracion(configuracion, config_id) {
+      var _this2 = this;
+
+      axios.put("/configcomponentes/" + config_id, configuracion).then(function (res) {
+        var msg = "Actualizó satisfactoriamente";
+        console.log(msg);
+
+        _this2.$message({
+          message: msg,
+          type: "success"
+        });
+
+        _this2.consultarConfiguracion();
+
+        _this2.cancelar();
+      }).catch(function (err) {
+        var msg = "ocurrio un error al Actualizar";
+        console.error(msg);
+        console.error(err);
+
+        _this2.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this2.nombre_new = "";
+        _this2.descripcion_new = "";
+        _this2.valor_new = "";
+        _this2.temp_new = 0;
+      });
+    },
+    cancelar: function cancelar() {
+      this.nombre_new = "";
+      this.descripcion_new = "";
+      this.valor_new = "";
+      this.temp_new = 0;
+      this.config_id = null;
+      this.accion = "Guardar";
+    },
+    editarConfiguracion: function editarConfiguracion(configuracion) {
+      this.nombre_new = configuracion.f007_nombre;
+      this.descripcion_new = configuracion.f007_descripcion;
+      this.valor_new = configuracion.f007_valor_on_off;
+      this.temp_new = configuracion.f007_valor_temp;
+      this.config_id = configuracion.f007_id;
+      this.accion = "Actualizar";
+    },
+    borrarConfiguracion: function borrarConfiguracion(configuracion) {
+      var _this3 = this;
+
+      axios.delete("/configcomponentes/" + configuracion.f007_id).then(function (res) {
+        var mensaje = res.data.msg;
+        console.log("borrarConfiguracion: ", mensaje);
+
+        _this3.$message({
+          message: mensaje,
+          type: "success"
+        });
+
+        _this3.consultarConfiguracion();
+      }).catch(function (error) {
+        console.error(error.data.msg);
+      });
+    },
+    handleClick: function handleClick(configuracion) {
+      console.log("Se dio clic en la configuracion: ", configuracion);
+    },
+    handleChange: function handleChange(value) {
+      console.log(value);
+    },
+    consultarComponentes: function consultarComponentes() {
+      var _this4 = this;
+
+      var data = {};
+      axios.get("/componentes", data).then(function (res) {
+        _this4.componenteList = res.data;
+        console.log("llegaron los datos: ", res.data);
+      }).catch(function (err) {
+        console.error("Error al consultar la ruta");
+        console.error(err);
+      });
+    },
+    consultarConfiguracion: function consultarConfiguracion() {
+      var _this5 = this;
+
+      var buscar = this.nombre;
+      var data = {
+        params: {
+          search: buscar
+        }
+      };
+      axios.get("/configcomponentes", data).then(function (res) {
+        _this5.configuracionTabla = res.data;
+        console.log("llegaron los datos: ", res.data);
+      }).catch(function (err) {
+        console.error("Error al consultar la ruta");
+        console.error(err);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/roles_maestro.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/roles_maestro.vue?vue&type=script&lang=js& ***!
@@ -91495,6 +91752,323 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/configcomponentes_maestro.vue?vue&type=template&id=3b3456c4&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/configcomponentes_maestro.vue?vue&type=template&id=3b3456c4& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "el-row",
+        { attrs: { gutter: 20 } },
+        [
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _c("el-input", {
+                attrs: {
+                  label: "nombre",
+                  placeholder: "Ingresa el nombre de Configuración"
+                },
+                model: {
+                  value: _vm.nombre_new,
+                  callback: function($$v) {
+                    _vm.nombre_new = $$v
+                  },
+                  expression: "nombre_new"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _c("el-input", {
+                attrs: {
+                  label: "descripcion",
+                  placeholder: "Ingresa la descripcion de Configuración"
+                },
+                model: {
+                  value: _vm.descripcion_new,
+                  callback: function($$v) {
+                    _vm.descripcion_new = $$v
+                  },
+                  expression: "descripcion_new"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        { attrs: { gutter: 20 } },
+        [
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _vm._v(
+                "\n      Indicar estado inicial de la Configuración:\n      "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("el-switch", {
+                staticStyle: { display: "block" },
+                attrs: {
+                  "active-color": "#13ce66",
+                  "inactive-color": "#ff4949",
+                  "active-text": "Activa",
+                  "inactive-text": "Inactiva"
+                },
+                model: {
+                  value: _vm.valor_new,
+                  callback: function($$v) {
+                    _vm.valor_new = $$v
+                  },
+                  expression: "valor_new"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _vm._v(
+                "\n      Seleccionar temperatura deseada, en caso de configuraciones para componentes tipo Aire Acondicionado:\n      "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("el-input-number", {
+                attrs: {
+                  "controls-position": "right",
+                  min: 17,
+                  max: 28,
+                  disabled: true
+                },
+                on: { change: _vm.handleChange },
+                model: {
+                  value: _vm.temp_new,
+                  callback: function($$v) {
+                    _vm.temp_new = $$v
+                  },
+                  expression: "temp_new"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        { attrs: { gutter: 20 } },
+        [
+          _c(
+            "el-col",
+            { attrs: { span: 12 } },
+            [
+              _c(
+                "el-select",
+                {
+                  attrs: { placeholder: "Componente a Configurar" },
+                  model: {
+                    value: _vm.componente_new,
+                    callback: function($$v) {
+                      _vm.componente_new = $$v
+                    },
+                    expression: "componente_new"
+                  }
+                },
+                _vm._l(_vm.componenteList, function(item) {
+                  return _c("el-option", {
+                    key: item.f003_id,
+                    attrs: { label: item.f003_descripcion, value: item.f003_id }
+                  })
+                }),
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            { attrs: { type: "primary" }, on: { click: _vm.guardar } },
+            [_vm._v(_vm._s(_vm.accion))]
+          ),
+          _vm._v(" "),
+          _vm.config_id != null
+            ? _c(
+                "el-button",
+                { attrs: { type: "danger" }, on: { click: _vm.cancelar } },
+                [_vm._v("Cancelar")]
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c("el-input", {
+            attrs: { placeholder: "Please input" },
+            model: {
+              value: _vm.nombre,
+              callback: function($$v) {
+                _vm.nombre = $$v
+              },
+              expression: "nombre"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        {
+          staticStyle: { width: "100%" },
+          attrs: { data: _vm.configuracionTabla }
+        },
+        [
+          _c("el-table-column", {
+            attrs: {
+              prop: "f007_nombre",
+              label: "Nombre",
+              width: "200",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f007_descripcion",
+              label: "Descripcion",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f007_valor_on_off",
+              label: "Valor",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f007_valor_temp",
+              label: "Temperatura",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f007_id_componente",
+              label: "Componente",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "Opciones" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editarConfiguracion(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Editar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.borrarConfiguracion(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Borrar")]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/roles_maestro.vue?vue&type=template&id=b7c3fa1c&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/roles_maestro.vue?vue&type=template&id=b7c3fa1c& ***!
@@ -103810,6 +104384,7 @@ Vue.component('roles-maestro', __webpack_require__(/*! ./components/roles_maestr
 Vue.component('comp-usuario', __webpack_require__(/*! ./components/comp-usuario.vue */ "./resources/js/components/comp-usuario.vue").default);
 Vue.component('ambientes-maestro', __webpack_require__(/*! ./components/ambientes_maestro.vue */ "./resources/js/components/ambientes_maestro.vue").default);
 Vue.component('componentes-maestro', __webpack_require__(/*! ./components/componentes_maestro.vue */ "./resources/js/components/componentes_maestro.vue").default);
+Vue.component('configcomponentes-maestro', __webpack_require__(/*! ./components/configcomponentes_maestro.vue */ "./resources/js/components/configcomponentes_maestro.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -104154,6 +104729,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_componentes_maestro_vue_vue_type_template_id_6c24e7e0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_componentes_maestro_vue_vue_type_template_id_6c24e7e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/configcomponentes_maestro.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/configcomponentes_maestro.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _configcomponentes_maestro_vue_vue_type_template_id_3b3456c4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./configcomponentes_maestro.vue?vue&type=template&id=3b3456c4& */ "./resources/js/components/configcomponentes_maestro.vue?vue&type=template&id=3b3456c4&");
+/* harmony import */ var _configcomponentes_maestro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./configcomponentes_maestro.vue?vue&type=script&lang=js& */ "./resources/js/components/configcomponentes_maestro.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _configcomponentes_maestro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _configcomponentes_maestro_vue_vue_type_template_id_3b3456c4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _configcomponentes_maestro_vue_vue_type_template_id_3b3456c4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/configcomponentes_maestro.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/configcomponentes_maestro.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/configcomponentes_maestro.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_configcomponentes_maestro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./configcomponentes_maestro.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/configcomponentes_maestro.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_configcomponentes_maestro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/configcomponentes_maestro.vue?vue&type=template&id=3b3456c4&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/configcomponentes_maestro.vue?vue&type=template&id=3b3456c4& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_configcomponentes_maestro_vue_vue_type_template_id_3b3456c4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./configcomponentes_maestro.vue?vue&type=template&id=3b3456c4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/configcomponentes_maestro.vue?vue&type=template&id=3b3456c4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_configcomponentes_maestro_vue_vue_type_template_id_3b3456c4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_configcomponentes_maestro_vue_vue_type_template_id_3b3456c4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

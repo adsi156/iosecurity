@@ -11,12 +11,10 @@ class ComponenteConfig extends Model
     public $timestamps = false;
 
      protected $fillable = [
-        'f007_id',
         'f007_nombre',
-        'f007_decripcion',
+        'f007_descripcion',
         'f007_valor_on_off',
         'f007_valor_temp',
         'f007_id_componente',
-        'f007_id_horario'
     ];
 }

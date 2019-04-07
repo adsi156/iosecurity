@@ -329,7 +329,7 @@
 												</a>
 											</li>
 											<li>
-												<a href="{{url('/config_componentes')}}">
+												<a href="{{url('/configcomponentescrear')}}">
 													 Configuración Componentes
 												</a>
 											</li>

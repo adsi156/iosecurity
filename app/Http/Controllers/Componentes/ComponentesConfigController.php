@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Componentes;
 
+use Validator;
 use App\ComponenteConfig;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,9 +14,16 @@ class ComponentesConfigController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(ComponenteConfig::all());
+        /*return response()->json(ComponenteConfig::all());*/
+
+        $search="";
+        if($request->has("search")){
+            $search = $request->search;
+        }
+        $configcomponentes = ComponenteConfig::where('f007_nombre','like','%'.$search.'%')->get();
+        return response()->json($configcomponentes);
     }
 
   
@@ -27,10 +35,47 @@ class ComponentesConfigController extends Controller
      */
     public function store(Request $request)
     {
-        $config = ComponenteConfig::create($request->all());
-        return response()->json($config);
+        /*$config = ComponenteConfig::create($request->all());
+        return response()->json($config);*/
 
+        $validator = Validator::make($request->all(), [
+            'f007_nombre' => 'max:100',
+            'f007_descripcion' => 'max:200',
+            'f007_valor_on_off' => 'max:10',
+            'f007_valor_temp' => 'max:10',
+            'f007_id_componente' => 'max:10'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errores"=>$validator->errors()]);
+        }else {
+            $datos = $request->all();
+            $configcomponente = ComponenteConfig::create($datos);
+            return response()->json($configcomponente);
+        }
     }
+
+    public function guardar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'f007_nombre' => 'max:100',
+            'f007_descripcion' => 'max:200',
+            'f007_valor_on_off' => 'max:10',
+            'f007_valor_temp' => 'max:10',
+            'f007_id_componente' => 'max:10'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+            $datos = $request->all();
+            ComponenteConfig::create($datos);
+            return redirect('/configcomponentescrear');
+        }
+    }
+      
 
     /**
      * Display the specified resource.
@@ -38,36 +83,10 @@ class ComponentesConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ComponenteConfig $config)
+    public function show(ComponenteConfig $configcomponente)
     {
-        return response()->json($config);
+        return response()->json($configcomponente);
     }
-
-<<<<<<< HEAD
-
-    /**
-     * Display the specified resource.
-     *
-     
-=======
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
->>>>>>> 575db5f3e7fe4036d188f2d4662d87144de85d01
-     * @return \Illuminate\Http\Response
-     */
-    public function consultar()
-    {
-<<<<<<< HEAD
-        $mensaje = "Hola";
-        return response()->json($mensaje);
-    }
-=======
-        return response()->json($ambiente);
-    }
-
->>>>>>> 575db5f3e7fe4036d188f2d4662d87144de85d01
    
     /**
      * Update the specified resource in storage.
@@ -76,10 +95,10 @@ class ComponentesConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ComponenteConfig $config)
+    public function update(Request $request, ComponenteConfig $configcomponente)
     {
-        $config->update($request->all());
-        return response()->json($config);
+        $configcomponente->update($request->all());
+        return response()->json($configcomponente);
     }
 
     /**
@@ -88,8 +107,10 @@ class ComponentesConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ComponenteConfig $config)
+    public function destroy(ComponenteConfig $configcomponente)
     {
-        $config->delete();
+        $configcomponente->delete();
+        $respuesta = ['msg' => 'Se borro Satisfactoriamente'];
+        return response()->json($respuesta,200);
     }
 }

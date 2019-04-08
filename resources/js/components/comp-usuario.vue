@@ -1,17 +1,23 @@
 <template>
   <div>
+    <el-form :model="ruleUserForm" :rules="rules" ref="userForm"  class="demo-ruleForm">
     <el-row :gutter="20">
       <el-col :span="12">
-        <el-input label="nombre" placeholder="Ingresa el nombre" v-model="nombre_new"></el-input>
+         <el-form-item label="" prop="nombre">
+            <el-input label="nombre" placeholder="Ingresa el nombre" v-model="ruleUserForm.nombre"></el-input>
+         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-input label="Celular" placeholder="Ingresa tu numero de celular" v-model="documento_new"></el-input>
+         <el-form-item label="" prop="celular">
+        <el-input label="Celular" placeholder="Ingresa tu numero de celular" v-model="ruleUserForm.celular"></el-input>
+         </el-form-item>
       </el-col>
     </el-row>
     <br>
     <el-row :gutter="20">
-      <el-col :span="5">
-        <el-select v-model="tipo_docto_new" placeholder="Tipo de documento">
+      <el-col :span="6">
+        <el-form-item label="" prop="tipo_docto">
+        <el-select v-model="ruleUserForm.tipo_docto" placeholder="Tipo de documento">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -19,42 +25,40 @@
             :value="item.value">
           </el-option>
         </el-select>
+        </el-form-item>
       </el-col>
-      <el-col :span="7">
-        <el-input label="Celular" placeholder="Ingresa tu numero de celular" v-model="celular_new"></el-input>
+      <el-col :span="6">
+        <el-form-item label="" prop="documento">
+        <el-input label="Documento" placeholder="Ingresa tu numero de documento" v-model="ruleUserForm.documento"></el-input>
+        </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-input label="Email" type="email" placeholder="Ingresa el E-mail" v-model="email_new"></el-input>
+        <el-form-item label="" prop="email">
+        <el-input label="Email" type="email" placeholder="Ingresa el E-mail" v-model="ruleUserForm.email"></el-input>
+        </el-form-item>
       </el-col>
     </el-row>
     <br>
     <el-row :gutter="20">
       <el-col :span="12">
-        <el-input label="Password" type="password" placeholder="Ingresa el password" v-model="password_new"></el-input>
+        <el-form-item label="" prop="password">
+        <el-input label="Password" type="password" placeholder="Ingresa el password" v-model="ruleUserForm.password"></el-input>
+        </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-input label="confPassword" type="password" placeholder="Confirmar password" v-model="password_conf_new"></el-input>
+        <el-form-item label="" prop="password_confirmation">
+        <el-input label="confirmar password" type="password" placeholder="Confirmar password" v-model="ruleUserForm.password_confirmation"></el-input>
+        </el-form-item>
       </el-col>
     </el-row>
     <br>
     <el-row :gutter="20">
       <el-col :span="12">
-        <el-upload
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          v-model="imagen_new"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          multiple
-          :limit="1"
-          :on-exceed="handleExceed"
-          :file-list="fileList">
-          <el-button size="small" type="primary">Clic para subir archivo</el-button>
-          <!--<div slot="tip" class="el-upload__tip">Solo archivos jpg/png con un tamaño menor de 500kb</div>-->
-        </el-upload>
+        <input type="file" :v-model="ruleUserForm.foto" >
       </el-col>
       <el-col :span="12">
-        <el-select v-model="rol_new" placeholder="Tipo de Rol">
+        <el-form-item label="" prop="rol">
+        <el-select v-model="ruleUserForm.rol" placeholder="Tipo de Rol">
           <el-option
             v-for="item in rolesList"
             :key="item.f006_id"
@@ -62,30 +66,84 @@
             :value="item.f006_nombre">
           </el-option>
         </el-select>
+        </el-form-item>
       </el-col>
     </el-row>
+    </el-form>
     <br>
     <el-row>
       <br>
       <footer class="panel-footer">
         <el-button type="primary" @click="guardar">{{accion}}</el-button>
-        <el-button type="danger" v-if="rol_id!=null" @click="cancelar">Cancelar</el-button>
+        <el-button type="danger" v-if="usuario_id!=null" @click="limpiarCampos">Cancelar</el-button>
       </footer>
     </el-row>
     <br>
+    <br>
+    <el-row>
+      <el-input placeholder="Please input" v-model="ruleUserForm.nombre"></el-input>
+    </el-row>
+    <el-table :data="usuariosTabla" style="width: 100%">
+      <el-table-column prop="f009_nombre" label="Nombre" width="180" align="center"></el-table-column>
+      <el-table-column prop="f009_documento" label="Documento" width="180" align="center"></el-table-column>
+      <el-table-column prop="email" label="Email" width="180" align="center"></el-table-column>
+      <el-table-column prop="f009_celular" label="Celular" width="180" align="center"></el-table-column>
+      <el-table-column label="Opciones">
+        <template slot-scope="scope">
+          <el-button @click="editarUsuario(scope.row)" type="text" size="small">Editar</el-button>
+          <el-button @click="borrarUsuario(scope.row)" type="text" size="small">Borrar</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 <script>
 export default {
   data(){
     return{
+      ruleUserForm:{
+        nombre:null,
+        celular:null,
+        tipo_docto:null,
+        documento:null,
+        email:null,
+        password:null,
+        password_confirmation:null,
+        rol:null
+      },
+      rules:{
+        nombre: [
+            { required: true, message: 'Por favor ingrese el nombre', trigger: 'blur' },
+          ],
+        celular: [
+            { required: true, message: 'Por favor ingrese el celular', trigger: 'blur' },
+          ],
+        email: [
+            { required: true, message: 'Por favor ingrese el celular', trigger: 'blur' },
+            { type: 'email', message: 'Por favor ingrese un email valido', trigger: ['blur', 'change'] }
+          ],
+        /*tipo_docto: [
+            { type: 'array', required: true, message: 'Por favor selecciona un tipo de documento', trigger: 'change' }
+          ],
+        rol: [
+            { type: 'array', required: true, message: 'Por favor selecciona un Rol', trigger: 'change' }
+          ],*/
+
+
+      },
+      usuario_id:null,
+      url_user:"/usuarios",
+      foto:null,
+      email_new:"",
+      documento_new:"",
       accion: "Guardar",
-      nombre: null,
+      nombre: "",
       nombre_new: '',
       celular_new: "",
       tipo_docto_new: "",
       password_new: "",
       password_conf_new: "",
+      usuariosTabla: [],
       imagen_new: "",
       rol_new: "",
       options: [{
@@ -102,27 +160,82 @@ export default {
           label: 'CE'
         }],
       fileList: [],
-      rolesList: []
+      rolesList: [],
+      errores: false,
+      msgErrores: []
     };
   },
   mounted() {
     console.log('Component mounted.');
     this.consultarRoles();
+    this.consultarUsuarios();
   },
+  watch: {
+    nombre() {
+      this.consultarUsuarios();
+    },
+    },
   methods: {
     guardar() {
-      let usuario = {
-        f009_nombre: this.nombre_new,
-        f009_documento: this.do,
-        f009_tipo_documento: this.tipo_docto_new
-      };
-      if (this.rol_id != null) {
-        console.log("Va a actualizar")
-        this.actualizarRol(rol,this.rol_id)
-      }else{
-        console.warn("va a crear")
-        this.guardarRol(rol);
-      }
+        let usuario = {
+          f009_nombre: this.ruleUserForm.nombre,
+          f009_documento: this.ruleUserForm.documento,
+          f009_tipo_documento: this.ruleUserForm.tipo_docto,
+          f009_celular: this.ruleUserForm.celular,
+          email: this.ruleUserForm.email,
+          password: this.ruleUserForm.password_confirmation,
+          password_confirmation:this.ruleUserForm.password,
+          f009_id_rol: this.ruleUserForm.rol,
+        };
+        let form = new FormData();
+        let keys = Object.keys(usuario)
+        keys.forEach(key=>{
+          form.append(key,usuario[key]);
+        })
+        form.append("file",this.foto)
+        if (this.usuario_id != null) {
+          console.log("Va a actualizar")
+          this.actualizarUsuario(usuario,this.usuario_id)
+        }else{
+          console.warn("va a crear")
+          this.guardarUsuario(form);
+        }
+      },
+      actualizarUsuario(usuario, usuario_id) {
+        axios
+        .put("/api/usuarios/"+usuario_id, usuario)
+        .then(res => {
+            let msg = "Actualizó satisfactoriamente";
+            console.log(msg);
+            this.$message({
+                message: msg,
+                type: "success"
+            });
+            this.consultarUsuarios();
+            this.limpiarCampos();
+        })
+        .catch(err => {
+            let msg = "ocurrio un error al Actualizar";
+            console.error(msg);
+            console.error(err);
+            this.$message({
+                message: msg,
+                type: "danger"
+            });
+            this.descripcion_new = "";
+            this.estado_new = "";
+        });
+    },
+    guardarFoto(user_id){
+      this.url_user = "/usuarios/"+user_id;
+      console.log("se va a llamar al metodo submit de la foto")
+      this.$refs.subirFoto.submit();
+      console.log("this.$refs.subirFoto: ",this.$refs.subirFoto)
+
+    },
+    guardarFotoUsuario(params){
+      console.log("parametros: ",params)
+
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -145,85 +258,10 @@ export default {
         console.error("Error al consultar la ruta");
         console.error(err);
       });
-    }
-  },
-  watch:{
-        calular(){
-          alert ("Hola");
-          let valorAnterior = value;
-          if (!Number.isInteger(value)){
-            this.celular = 855888;
-          }
-          this.celular = 855888;
-        }
-  },
-}
-</script>
-
-<!--
-<script>
-export default {
-  data() {
-    return {
-      nombre_new: "",
-      documento_new: null,
-      tipo_docto_new: "CC",
-      celular_new: null,
-      email_new: "",
-      password_new: "",
-      imagen_new: null,
-      rol_new: null,
-      fecha_creacion_new: null,
-      fecha_actualizacion_new: null,
-
-      nombre: "",
-      descripcion: "",
-      rolesTabla: [],
-      descripcion_new: "",
-      rol_id: null,
-      accion: "Guardar",
-
-      options: [{
-          value: 'CC',
-          label: 'CC'
-        }, {
-          value: 'NIT',
-          label: 'NIT'
-        }, {
-          value: 'TI',
-          label: 'TI'
-        }, {
-          value: 'CE',
-          label: 'CE'
-        }],
-    };
-  },
-  mounted() {
-    console.log("Component mounted.");
-    this.consultarRoles();
-  },
-  watch: {
-    nombre() {
-      this.consultarRoles();
-    }
-  },
-  methods: {
-    guardar() {
-      let rol = {
-        f006_nombre: this.nombre_new,
-        f006_descripcion: this.descripcion_new
-      };
-      if (this.rol_id != null) {
-        console.log("Va a actualizar")
-        this.actualizarRol(rol,this.rol_id)
-      }else{
-        console.warn("va a crear")
-        this.guardarRol(rol);
-      }
     },
-    guardarRol(rol) {
+    guardarUsuario(usuario) {
       axios
-        .post("/roles", rol)
+        .post("/api/usuarios", usuario)
         .then(res => {
           let msg = "Guardo satisfactoriamente";
           console.log(msg);
@@ -231,12 +269,18 @@ export default {
             message: msg,
             type: "success"
           });
-          this.consultarRoles();
+          console.log("va a guardar el usuario: ",res)
+          // this.guardarFoto(res.data.f009_id)
+          this.consultarUsuarios();
+          this.limpiarCampos();
         })
         .catch(err => {
-          let msg = "ocurrio un error al guardar";
+          let errores = JSON.stringify(err.response.data)
+
+          let msg = "ocurrio un error al guardar: " +  errores;
           console.error(msg);
           console.error(err);
+          console.error("error.response: ",err.response);
 
           this.$message({
             message: msg,
@@ -246,64 +290,46 @@ export default {
           this.descripcion_new = "";
         });
     },
-    actualizarRol(rol, rol_id) {
+    editarUsuario(usuario) {
+        this.ruleUserForm.nombre = usuario.f009_nombre;
+        this.ruleUserForm.celular = usuario.f009_celular;
+        this.ruleUserForm.tipo_docto = usuario.f009_tipo_documento;
+        this.ruleUserForm.documento = usuario.f009_documento;
+        this.ruleUserForm.email = usuario.email;
+        this.ruleUserForm.password = usuario.password;
+        this.ruleUserForm.password_confirmation = usuario.password;
+        this.ruleUserForm.rol =  usuario.f009_id_rol;
+        this.usuario_id = usuario.f009_id;
+        this.accion = "Actualizar";
+    },
+    limpiarCampos() {
+        this.ruleUserForm.nombre = '';
+        this.ruleUserForm.celular = "";
+        this.ruleUserForm.tipo_docto = "";
+        this.ruleUserForm.documento = "";
+        this.ruleUserForm.email = "";
+        this.ruleUserForm.password = "";
+        this.ruleUserForm.password_confirmation = "";
+        this.ruleUserForm.rol =  "";
+        this.accion = "Guardar";
+    },
+    borrarUsuario(usuario) {
         axios
-        .put("/roles/"+rol_id, rol)
+        .delete("/api/usuarios/" + usuario.f009_id)
         .then(res => {
-          let msg = "Actualizó satisfactoriamente";
-          console.log(msg);
-          this.$message({
-            message: msg,
-            type: "success"
-          });
-          this.consultarRoles();
-          this.cancelar();
-        })
-        .catch(err => {
-          let msg = "ocurrio un error al Actualizar";
-          console.error(msg);
-          console.error(err);
-
-          this.$message({
-            message: msg,
-            type: "danger"
-          });
-          this.nombre_new = "";
-          this.descripcion_new = "";
-        });
-    },
-    cancelar() {
-      this.nombre_new = "";
-      this.descripcion_new = "";
-      this.rol_id = null;
-      this.accion = "Guardar";
-    },
-    editarRol(rol) {
-      this.nombre_new = rol.f006_nombre;
-      this.descripcion_new = rol.f006_descripcion;
-      this.rol_id = rol.f006_id;
-      this.accion = "Actualizar";
-    },
-    borrarRol(rol) {
-      axios
-        .delete("/roles/" + rol.f006_id)
-        .then(res => {
-          let mensaje = res.data.msg;
-          console.log("borrarRol: ", mensaje);
-          this.$message({
-            message: mensaje,
-            type: "success"
-          });
-          this.consultarRoles();
+            let mensaje = res.data.msg;
+            console.log("borrar Usuario: ", mensaje);
+            this.$message({
+                message: mensaje,
+                type: "success"
+            });
+            this.consultarUsuarios();
         })
         .catch(error => {
-          console.error(error.data.msg);
+            console.error(error.data.msg);
         });
     },
-    handleClick(rol) {
-      console.log("se dio clic en el rol:", rol);
-    },
-    consultarRoles() {
+    consultarUsuarios() {
       let buscar = this.nombre;
       let data = {
         params: {
@@ -311,16 +337,17 @@ export default {
         }
       };
       axios
-        .get("/roles", data)
+        .get("api/usuarios", data)
         .then(res => {
-          this.rolesTabla = res.data;
+          this.usuariosTabla = res.data;
           console.log("llegaron los datos: ", res.data);
         })
         .catch(err => {
           console.error("Error al consultar la ruta");
           console.error(err);
         });
-    }
+      }
   }
-};
-</script>-->
+}
+</script>
+

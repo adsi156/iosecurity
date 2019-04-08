@@ -33,7 +33,7 @@ Route::get('logout','LoginController@logout');
 
 Route::middleware(['auth'])->group(function () {
     
-    Route::resource('/sedes','SedesController');
+    Route::resource('/sedes','sedesController');
     Route::resource('/roles','rolesController');
     Route::resource('/ambientes','AmbientesController');
     Route::resource('/tipoComponente','Componentes\TiposComponentesController');
@@ -76,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/rolescrear', 'rolesController@store');
 
     Route::post('/ambientescrear', 'AmbientesController@store');
+    Route::post('/sedescrear', 'sedesController@store');
+
+    Route::post('/sedescrear', 'sedesController@store');
 
     Route::post('/componentescrear', 'Componentes\ComponentesController@store');
 

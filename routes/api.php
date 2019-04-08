@@ -37,8 +37,9 @@ Route::resource('ambientesconsulta', 'consultaAmbienteApiController', ['only'=>[
 /*
     Usuarios
 */
-Route::resource('usuarios', 'UserController', ['only'=>['index', 'show']]);
+Route::resource('usuarios', 'UserController', ['only'=>['index','store','update', 'show','destroy']]);
 /*
     Componentes por Ambiente
 */
 Route::resource('componentesAmbiente', 'AmbientesApiController', ['only'=>['show']]);
+

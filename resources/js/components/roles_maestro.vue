@@ -24,9 +24,9 @@
       <el-input placeholder="Please input" v-model="nombre"></el-input>
     </el-row>
     <el-table :data="rolesTabla" style="width: 100%">
-      <el-table-column prop="f006_nombre" label="Nombre" width="180"></el-table-column>
-      <el-table-column prop="f006_descripcion" label="Descripcion" width="180"></el-table-column>
-      <el-table-column label="opciones">
+      <el-table-column prop="f006_nombre" label="Nombre" width="180" align="center"></el-table-column>
+      <el-table-column prop="f006_descripcion" label="Descripcion" width="200" align="center"></el-table-column>
+      <el-table-column label="Opciones" align="left">
         <template slot-scope="scope">
           <el-button @click="editarRol(scope.row)" type="text" size="small">Editar</el-button>
           <el-button @click="borrarRol(scope.row)" type="text" size="small">Borrar</el-button>

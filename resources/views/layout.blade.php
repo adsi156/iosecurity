@@ -254,7 +254,7 @@
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i>Configuración de Privacidad</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i>Cerrar Sesión</a>
+									<a href="{{ url('logout') }}" method="GET" role="menuitem" tabindex="-1" ><i class="fa fa-power-off"></i>Cerrar Sesión</a>
 								</li>
 							</ul>
 						</div>

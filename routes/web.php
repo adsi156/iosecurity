@@ -29,7 +29,7 @@ Route::get('login', function () {
 Route::get('usuarios/nuevo', 'UserController@create');
 Route::post('usuarios', 'UserController@store');
 Route::post('validar', 'LoginController@authenticate');
-
+Route::get('logout','LoginController@logout');
 
 Route::middleware(['auth'])->group(function () {
     

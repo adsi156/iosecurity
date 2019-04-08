@@ -92182,19 +92182,25 @@ var render = function() {
         { staticStyle: { width: "100%" }, attrs: { data: _vm.rolesTabla } },
         [
           _c("el-table-column", {
-            attrs: { prop: "f006_nombre", label: "Nombre", width: "180" }
+            attrs: {
+              prop: "f006_nombre",
+              label: "Nombre",
+              width: "180",
+              align: "center"
+            }
           }),
           _vm._v(" "),
           _c("el-table-column", {
             attrs: {
               prop: "f006_descripcion",
               label: "Descripcion",
-              width: "180"
+              width: "200",
+              align: "center"
             }
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: "opciones" },
+            attrs: { label: "Opciones", align: "left" },
             scopedSlots: _vm._u([
               {
                 key: "default",

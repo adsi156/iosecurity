@@ -16,7 +16,6 @@ class LoginController extends Controller
             // $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
-            echo 'aaaaaaaaaaa';
         }else {
             return redirect('login')->with('message', 'Datos incorrectos!');
         }
@@ -30,5 +29,11 @@ class LoginController extends Controller
         }else {
             return redirect('login')->with('message', 'Datos incorrectos!');
         }*/
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        return redirect('login');
+
     }
 }

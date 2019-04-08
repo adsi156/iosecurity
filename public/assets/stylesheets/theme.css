@@ -79,6 +79,10 @@ a:active {
 	padding: 0;
 }
 
+.fondo {
+	background-image: url('../images/security2.jpg');
+}
+
 /* Layout Base - Sidebar Left */
 .sidebar-left {
 	background: #34495e;
@@ -6234,7 +6238,7 @@ html .panel .panel-heading-transparent + .panel-body {
 .tab-content {
 	border-radius: 0 0 4px 4px;
 	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.04);
-	background-color: white;
+	background-color: rgba(255, 255, 255, 0.7);
 	border: 1px solid #eeeeee;
 	border-top: 0;
 	padding: 15px;

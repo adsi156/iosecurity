@@ -11,7 +11,6 @@ class Sede extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'f004_id',
         'f004_nombre',
         'f004_descripcion',
     ];

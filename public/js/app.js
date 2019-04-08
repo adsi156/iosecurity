@@ -3647,6 +3647,199 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-sedes.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/comp-sedes.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      nombre: "",
+      descripcion: "",
+      rolesTabla: [],
+      nombre_new: "",
+      descripcion_new: "",
+      sede_id: null,
+      accion: "Guardar"
+    };
+  },
+  mounted: function mounted() {
+    console.log("Component mounted.");
+    this.consultarRoles();
+  },
+  watch: {
+    nombre: function nombre() {
+      this.consultarRoles();
+    }
+  },
+  methods: {
+    guardar: function guardar() {
+      var sede = {
+        f004_nombre: this.nombre_new,
+        f004_descripcion: this.descripcion_new
+      };
+
+      if (this.rol_id != null) {
+        console.log("Va a actualizar");
+        this.actualizarRol(sede, this.sede_id);
+      } else {
+        console.warn("va a crear");
+        this.guardarRol(sede);
+      }
+    },
+    guardarRol: function guardarRol(sede) {
+      var _this = this;
+
+      axios.post("/sedes", sede).then(function (res) {
+        var msg = "Guardo satisfactoriamente";
+        console.log(msg);
+
+        _this.$message({
+          message: msg,
+          type: "success"
+        });
+
+        _this.consultarRoles();
+      }).catch(function (err) {
+        var msg = "ocurrio un error al guardar";
+        console.error(msg);
+        console.error(err);
+
+        _this.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this.nombre_new = "";
+        _this.descripcion_new = "";
+      });
+    },
+    actualizarRol: function actualizarRol(rol, rol_id) {
+      var _this2 = this;
+
+      axios.put("/sedes/" + rol_id, rol).then(function (res) {
+        var msg = "Actualizó satisfactoriamente";
+        console.log(msg);
+
+        _this2.$message({
+          message: msg,
+          type: "success"
+        });
+
+        _this2.consultarRoles();
+
+        _this2.cancelar();
+      }).catch(function (err) {
+        var msg = "ocurrio un error al Actualizar";
+        console.error(msg);
+        console.error(err);
+
+        _this2.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this2.nombre_new = "";
+        _this2.descripcion_new = "";
+      });
+    },
+    cancelar: function cancelar() {
+      this.nombre_new = "";
+      this.descripcion_new = "";
+      this.rol_id = null;
+      this.accion = "Guardar";
+    },
+    editarRol: function editarRol(rol) {
+      this.nombre_new = rol.f004_nombre;
+      this.descripcion_new = rol.f004_descripcion;
+      this.rol_id = rol.f004_id;
+      this.accion = "Actualizar";
+    },
+    borrarRol: function borrarRol(rol) {
+      var _this3 = this;
+
+      axios.delete("/sedes/" + rol.f004_id).then(function (res) {
+        var mensaje = res.data.msg;
+        console.log("borrarRol: ", mensaje);
+
+        _this3.$message({
+          message: mensaje,
+          type: "success"
+        });
+
+        _this3.consultarRoles();
+      }).catch(function (error) {
+        console.error(error.data.msg);
+      });
+    },
+    handleClick: function handleClick(rol) {
+      console.log("se dio clic en el rol:", rol);
+    },
+    consultarRoles: function consultarRoles() {
+      var _this4 = this;
+
+      var buscar = this.nombre;
+      var data = {
+        params: {
+          search: buscar
+        }
+      };
+      axios.get("/sedes", data).then(function (res) {
+        _this4.rolesTabla = res.data;
+        console.log("llegaron los datos: ", res.data);
+      }).catch(function (err) {
+        console.error("Error al consultar la ruta");
+        console.error(err);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-usuario.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/comp-usuario.vue?vue&type=script&lang=js& ***!
@@ -3733,16 +3926,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      ruleUserForm: {
+        nombre: null,
+        celular: null,
+        tipo_docto: null,
+        documento: null,
+        email: null,
+        password: null,
+        password_confirmation: null,
+        rol: null
+      },
+      rules: {
+        nombre: [{
+          required: true,
+          message: 'Por favor ingrese el nombre',
+          trigger: 'blur'
+        }],
+        celular: [{
+          required: true,
+          message: 'Por favor ingrese el celular',
+          trigger: 'blur'
+        }],
+        email: [{
+          required: true,
+          message: 'Por favor ingrese el celular',
+          trigger: 'blur'
+        }, {
+          type: 'email',
+          message: 'Por favor ingrese un email valido',
+          trigger: ['blur', 'change']
+        }]
+        /*tipo_docto: [
+            { type: 'array', required: true, message: 'Por favor selecciona un tipo de documento', trigger: 'change' }
+          ],
+        rol: [
+            { type: 'array', required: true, message: 'Por favor selecciona un Rol', trigger: 'change' }
+          ],*/
+
+      },
+      usuario_id: null,
+      url_user: "/usuarios",
+      foto: null,
+      email_new: "",
+      documento_new: "",
       accion: "Guardar",
-      nombre: null,
+      nombre: "",
       nombre_new: '',
       celular_new: "",
       tipo_docto_new: "",
       password_new: "",
       password_conf_new: "",
+      usuariosTabla: [],
       imagen_new: "",
       rol_new: "",
       options: [{
@@ -3759,28 +4018,85 @@ __webpack_require__.r(__webpack_exports__);
         label: 'CE'
       }],
       fileList: [],
-      rolesList: []
+      rolesList: [],
+      errores: false,
+      msgErrores: []
     };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
     this.consultarRoles();
+    this.consultarUsuarios();
+  },
+  watch: {
+    nombre: function nombre() {
+      this.consultarUsuarios();
+    }
   },
   methods: {
     guardar: function guardar() {
       var usuario = {
-        f009_nombre: this.nombre_new,
-        f009_documento: this.do,
-        f009_tipo_documento: this.tipo_docto_new
+        f009_nombre: this.ruleUserForm.nombre,
+        f009_documento: this.ruleUserForm.documento,
+        f009_tipo_documento: this.ruleUserForm.tipo_docto,
+        f009_celular: this.ruleUserForm.celular,
+        email: this.ruleUserForm.email,
+        password: this.ruleUserForm.password_confirmation,
+        password_confirmation: this.ruleUserForm.password,
+        f009_id_rol: this.ruleUserForm.rol
       };
+      var form = new FormData();
+      var keys = Object.keys(usuario);
+      keys.forEach(function (key) {
+        form.append(key, usuario[key]);
+      });
+      form.append("file", this.foto);
 
-      if (this.rol_id != null) {
+      if (this.usuario_id != null) {
         console.log("Va a actualizar");
-        this.actualizarRol(rol, this.rol_id);
+        this.actualizarUsuario(usuario, this.usuario_id);
       } else {
         console.warn("va a crear");
-        this.guardarRol(rol);
+        this.guardarUsuario(form);
       }
+    },
+    actualizarUsuario: function actualizarUsuario(usuario, usuario_id) {
+      var _this = this;
+
+      axios.put("/api/usuarios/" + usuario_id, usuario).then(function (res) {
+        var msg = "Actualizó satisfactoriamente";
+        console.log(msg);
+
+        _this.$message({
+          message: msg,
+          type: "success"
+        });
+
+        _this.consultarUsuarios();
+
+        _this.limpiarCampos();
+      }).catch(function (err) {
+        var msg = "ocurrio un error al Actualizar";
+        console.error(msg);
+        console.error(err);
+
+        _this.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this.descripcion_new = "";
+        _this.estado_new = "";
+      });
+    },
+    guardarFoto: function guardarFoto(user_id) {
+      this.url_user = "/usuarios/" + user_id;
+      console.log("se va a llamar al metodo submit de la foto");
+      this.$refs.subirFoto.submit();
+      console.log("this.$refs.subirFoto: ", this.$refs.subirFoto);
+    },
+    guardarFotoUsuario: function guardarFotoUsuario(params) {
+      console.log("parametros: ", params);
     },
     handleRemove: function handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -3792,28 +4108,106 @@ __webpack_require__.r(__webpack_exports__);
       this.$message.warning("El l\xEDmite es 1, haz seleccionado ".concat(files.length, " archivos esta vez, a\xF1ade hasta ").concat(files.length + fileList.length));
     },
     consultarRoles: function consultarRoles() {
-      var _this = this;
+      var _this2 = this;
 
       var data = {};
       axios.get("/roles", data).then(function (res) {
-        _this.rolesList = res.data;
+        _this2.rolesList = res.data;
         console.log("llegaron los datos: ", res.data);
       }).catch(function (err) {
         console.error("Error al consultar la ruta");
         console.error(err);
       });
-    }
-  },
-  watch: {
-    calular: function calular() {
-      alert("Hola");
-      var valorAnterior = value;
+    },
+    guardarUsuario: function guardarUsuario(usuario) {
+      var _this3 = this;
 
-      if (!Number.isInteger(value)) {
-        this.celular = 855888;
-      }
+      axios.post("/api/usuarios", usuario).then(function (res) {
+        var msg = "Guardo satisfactoriamente";
+        console.log(msg);
 
-      this.celular = 855888;
+        _this3.$message({
+          message: msg,
+          type: "success"
+        });
+
+        console.log("va a guardar el usuario: ", res); // this.guardarFoto(res.data.f009_id)
+
+        _this3.consultarUsuarios();
+
+        _this3.limpiarCampos();
+      }).catch(function (err) {
+        var errores = JSON.stringify(err.response.data);
+        var msg = "ocurrio un error al guardar: " + errores;
+        console.error(msg);
+        console.error(err);
+        console.error("error.response: ", err.response);
+
+        _this3.$message({
+          message: msg,
+          type: "danger"
+        });
+
+        _this3.nombre_new = "";
+        _this3.descripcion_new = "";
+      });
+    },
+    editarUsuario: function editarUsuario(usuario) {
+      this.ruleUserForm.nombre = usuario.f009_nombre;
+      this.ruleUserForm.celular = usuario.f009_celular;
+      this.ruleUserForm.tipo_docto = usuario.f009_tipo_documento;
+      this.ruleUserForm.documento = usuario.f009_documento;
+      this.ruleUserForm.email = usuario.email;
+      this.ruleUserForm.password = usuario.password;
+      this.ruleUserForm.password_confirmation = usuario.password;
+      this.ruleUserForm.rol = usuario.f009_id_rol;
+      this.usuario_id = usuario.f009_id;
+      this.accion = "Actualizar";
+    },
+    limpiarCampos: function limpiarCampos() {
+      this.ruleUserForm.nombre = '';
+      this.ruleUserForm.celular = "";
+      this.ruleUserForm.tipo_docto = "";
+      this.ruleUserForm.documento = "";
+      this.ruleUserForm.email = "";
+      this.ruleUserForm.password = "";
+      this.ruleUserForm.password_confirmation = "";
+      this.ruleUserForm.rol = "";
+      this.accion = "Guardar";
+    },
+    borrarUsuario: function borrarUsuario(usuario) {
+      var _this4 = this;
+
+      axios.delete("/api/usuarios/" + usuario.f009_id).then(function (res) {
+        var mensaje = res.data.msg;
+        console.log("borrar Usuario: ", mensaje);
+
+        _this4.$message({
+          message: mensaje,
+          type: "success"
+        });
+
+        _this4.consultarUsuarios();
+      }).catch(function (error) {
+        console.error(error.data.msg);
+      });
+    },
+    consultarUsuarios: function consultarUsuarios() {
+      var _this5 = this;
+
+      var buscar = this.nombre;
+      var data = {
+        params: {
+          search: buscar
+        }
+      };
+      axios.get("api/usuarios", data).then(function (res) {
+        _this5.usuariosTabla = res.data;
+        console.log("llegaron los datos: ", res.data);
+      }).catch(function (err) {
+        console.error("Error al consultar la ruta");
+        console.error(err);
+      });
     }
   }
 });
@@ -91171,10 +91565,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-usuario.vue?vue&type=template&id=42bb038a&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/comp-usuario.vue?vue&type=template&id=42bb038a& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-sedes.vue?vue&type=template&id=4c383066&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/comp-sedes.vue?vue&type=template&id=4c383066& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -91217,15 +91611,15 @@ var render = function() {
             [
               _c("el-input", {
                 attrs: {
-                  label: "Celular",
-                  placeholder: "Ingresa tu numero de celular"
+                  label: "descripcion",
+                  placeholder: "Ingresa la descripcion"
                 },
                 model: {
-                  value: _vm.documento_new,
+                  value: _vm.descripcion_new,
                   callback: function($$v) {
-                    _vm.documento_new = $$v
+                    _vm.descripcion_new = $$v
                   },
-                  expression: "documento_new"
+                  expression: "descripcion_new"
                 }
               })
             ],
@@ -91234,216 +91628,6 @@ var render = function() {
         ],
         1
       ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "el-row",
-        { attrs: { gutter: 20 } },
-        [
-          _c(
-            "el-col",
-            { attrs: { span: 5 } },
-            [
-              _c(
-                "el-select",
-                {
-                  attrs: { placeholder: "Tipo de documento" },
-                  model: {
-                    value: _vm.tipo_docto_new,
-                    callback: function($$v) {
-                      _vm.tipo_docto_new = $$v
-                    },
-                    expression: "tipo_docto_new"
-                  }
-                },
-                _vm._l(_vm.options, function(item) {
-                  return _c("el-option", {
-                    key: item.value,
-                    attrs: { label: item.label, value: item.value }
-                  })
-                }),
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-col",
-            { attrs: { span: 7 } },
-            [
-              _c("el-input", {
-                attrs: {
-                  label: "Celular",
-                  placeholder: "Ingresa tu numero de celular"
-                },
-                model: {
-                  value: _vm.celular_new,
-                  callback: function($$v) {
-                    _vm.celular_new = $$v
-                  },
-                  expression: "celular_new"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-col",
-            { attrs: { span: 12 } },
-            [
-              _c("el-input", {
-                attrs: {
-                  label: "Email",
-                  type: "email",
-                  placeholder: "Ingresa el E-mail"
-                },
-                model: {
-                  value: _vm.email_new,
-                  callback: function($$v) {
-                    _vm.email_new = $$v
-                  },
-                  expression: "email_new"
-                }
-              })
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "el-row",
-        { attrs: { gutter: 20 } },
-        [
-          _c(
-            "el-col",
-            { attrs: { span: 12 } },
-            [
-              _c("el-input", {
-                attrs: {
-                  label: "Password",
-                  type: "password",
-                  placeholder: "Ingresa el password"
-                },
-                model: {
-                  value: _vm.password_new,
-                  callback: function($$v) {
-                    _vm.password_new = $$v
-                  },
-                  expression: "password_new"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-col",
-            { attrs: { span: 12 } },
-            [
-              _c("el-input", {
-                attrs: {
-                  label: "confPassword",
-                  type: "password",
-                  placeholder: "Confirmar password"
-                },
-                model: {
-                  value: _vm.password_conf_new,
-                  callback: function($$v) {
-                    _vm.password_conf_new = $$v
-                  },
-                  expression: "password_conf_new"
-                }
-              })
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "el-row",
-        { attrs: { gutter: 20 } },
-        [
-          _c(
-            "el-col",
-            { attrs: { span: 12 } },
-            [
-              _c(
-                "el-upload",
-                {
-                  staticClass: "upload-demo",
-                  attrs: {
-                    action: "https://jsonplaceholder.typicode.com/posts/",
-                    "on-preview": _vm.handlePreview,
-                    "on-remove": _vm.handleRemove,
-                    multiple: "",
-                    limit: 1,
-                    "on-exceed": _vm.handleExceed,
-                    "file-list": _vm.fileList
-                  },
-                  model: {
-                    value: _vm.imagen_new,
-                    callback: function($$v) {
-                      _vm.imagen_new = $$v
-                    },
-                    expression: "imagen_new"
-                  }
-                },
-                [
-                  _c(
-                    "el-button",
-                    { attrs: { size: "small", type: "primary" } },
-                    [_vm._v("Clic para subir archivo")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-col",
-            { attrs: { span: 12 } },
-            [
-              _c(
-                "el-select",
-                {
-                  attrs: { placeholder: "Tipo de Rol" },
-                  model: {
-                    value: _vm.rol_new,
-                    callback: function($$v) {
-                      _vm.rol_new = $$v
-                    },
-                    expression: "rol_new"
-                  }
-                },
-                _vm._l(_vm.rolesList, function(item) {
-                  return _c("el-option", {
-                    key: item.f006_id,
-                    attrs: { label: item.f006_nombre, value: item.f006_nombre }
-                  })
-                }),
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
       _vm._v(" "),
       _c("el-row", [
         _c("br"),
@@ -91470,7 +91654,540 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("br")
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c("el-input", {
+            attrs: { placeholder: "Please input" },
+            model: {
+              value: _vm.nombre,
+              callback: function($$v) {
+                _vm.nombre = $$v
+              },
+              expression: "nombre"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        { staticStyle: { width: "100%" }, attrs: { data: _vm.rolesTabla } },
+        [
+          _c("el-table-column", {
+            attrs: { prop: "f004_nombre", label: "Nombre", width: "180" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f004_descripcion",
+              label: "Descripcion",
+              width: "180"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "opciones" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editarRol(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Editar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.borrarRol(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Borrar")]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-usuario.vue?vue&type=template&id=42bb038a&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/comp-usuario.vue?vue&type=template&id=42bb038a& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "el-form",
+        {
+          ref: "userForm",
+          staticClass: "demo-ruleForm",
+          attrs: { model: _vm.ruleUserForm, rules: _vm.rules }
+        },
+        [
+          _c(
+            "el-row",
+            { attrs: { gutter: 20 } },
+            [
+              _c(
+                "el-col",
+                { attrs: { span: 12 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "nombre" } },
+                    [
+                      _c("el-input", {
+                        attrs: {
+                          label: "nombre",
+                          placeholder: "Ingresa el nombre"
+                        },
+                        model: {
+                          value: _vm.ruleUserForm.nombre,
+                          callback: function($$v) {
+                            _vm.$set(_vm.ruleUserForm, "nombre", $$v)
+                          },
+                          expression: "ruleUserForm.nombre"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-col",
+                { attrs: { span: 12 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "celular" } },
+                    [
+                      _c("el-input", {
+                        attrs: {
+                          label: "Celular",
+                          placeholder: "Ingresa tu numero de celular"
+                        },
+                        model: {
+                          value: _vm.ruleUserForm.celular,
+                          callback: function($$v) {
+                            _vm.$set(_vm.ruleUserForm, "celular", $$v)
+                          },
+                          expression: "ruleUserForm.celular"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "el-row",
+            { attrs: { gutter: 20 } },
+            [
+              _c(
+                "el-col",
+                { attrs: { span: 6 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "tipo_docto" } },
+                    [
+                      _c(
+                        "el-select",
+                        {
+                          attrs: { placeholder: "Tipo de documento" },
+                          model: {
+                            value: _vm.ruleUserForm.tipo_docto,
+                            callback: function($$v) {
+                              _vm.$set(_vm.ruleUserForm, "tipo_docto", $$v)
+                            },
+                            expression: "ruleUserForm.tipo_docto"
+                          }
+                        },
+                        _vm._l(_vm.options, function(item) {
+                          return _c("el-option", {
+                            key: item.value,
+                            attrs: { label: item.label, value: item.value }
+                          })
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-col",
+                { attrs: { span: 6 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "documento" } },
+                    [
+                      _c("el-input", {
+                        attrs: {
+                          label: "Documento",
+                          placeholder: "Ingresa tu numero de documento"
+                        },
+                        model: {
+                          value: _vm.ruleUserForm.documento,
+                          callback: function($$v) {
+                            _vm.$set(_vm.ruleUserForm, "documento", $$v)
+                          },
+                          expression: "ruleUserForm.documento"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-col",
+                { attrs: { span: 12 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "email" } },
+                    [
+                      _c("el-input", {
+                        attrs: {
+                          label: "Email",
+                          type: "email",
+                          placeholder: "Ingresa el E-mail"
+                        },
+                        model: {
+                          value: _vm.ruleUserForm.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.ruleUserForm, "email", $$v)
+                          },
+                          expression: "ruleUserForm.email"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "el-row",
+            { attrs: { gutter: 20 } },
+            [
+              _c(
+                "el-col",
+                { attrs: { span: 12 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "password" } },
+                    [
+                      _c("el-input", {
+                        attrs: {
+                          label: "Password",
+                          type: "password",
+                          placeholder: "Ingresa el password"
+                        },
+                        model: {
+                          value: _vm.ruleUserForm.password,
+                          callback: function($$v) {
+                            _vm.$set(_vm.ruleUserForm, "password", $$v)
+                          },
+                          expression: "ruleUserForm.password"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-col",
+                { attrs: { span: 12 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "password_confirmation" } },
+                    [
+                      _c("el-input", {
+                        attrs: {
+                          label: "confirmar password",
+                          type: "password",
+                          placeholder: "Confirmar password"
+                        },
+                        model: {
+                          value: _vm.ruleUserForm.password_confirmation,
+                          callback: function($$v) {
+                            _vm.$set(
+                              _vm.ruleUserForm,
+                              "password_confirmation",
+                              $$v
+                            )
+                          },
+                          expression: "ruleUserForm.password_confirmation"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "el-row",
+            { attrs: { gutter: 20 } },
+            [
+              _c("el-col", { attrs: { span: 12 } }, [
+                _c("input", {
+                  attrs: { type: "file", "v-model": _vm.ruleUserForm.foto }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "el-col",
+                { attrs: { span: 12 } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "", prop: "rol" } },
+                    [
+                      _c(
+                        "el-select",
+                        {
+                          attrs: { placeholder: "Tipo de Rol" },
+                          model: {
+                            value: _vm.ruleUserForm.rol,
+                            callback: function($$v) {
+                              _vm.$set(_vm.ruleUserForm, "rol", $$v)
+                            },
+                            expression: "ruleUserForm.rol"
+                          }
+                        },
+                        _vm._l(_vm.rolesList, function(item) {
+                          return _c("el-option", {
+                            key: item.f006_id,
+                            attrs: {
+                              label: item.f006_nombre,
+                              value: item.f006_nombre
+                            }
+                          })
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("el-row", [
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "footer",
+          { staticClass: "panel-footer" },
+          [
+            _c(
+              "el-button",
+              { attrs: { type: "primary" }, on: { click: _vm.guardar } },
+              [_vm._v(_vm._s(_vm.accion))]
+            ),
+            _vm._v(" "),
+            _vm.usuario_id != null
+              ? _c(
+                  "el-button",
+                  {
+                    attrs: { type: "danger" },
+                    on: { click: _vm.limpiarCampos }
+                  },
+                  [_vm._v("Cancelar")]
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c("el-input", {
+            attrs: { placeholder: "Please input" },
+            model: {
+              value: _vm.ruleUserForm.nombre,
+              callback: function($$v) {
+                _vm.$set(_vm.ruleUserForm, "nombre", $$v)
+              },
+              expression: "ruleUserForm.nombre"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        { staticStyle: { width: "100%" }, attrs: { data: _vm.usuariosTabla } },
+        [
+          _c("el-table-column", {
+            attrs: {
+              prop: "f009_nombre",
+              label: "Nombre",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f009_documento",
+              label: "Documento",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "email",
+              label: "Email",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: {
+              prop: "f009_celular",
+              label: "Celular",
+              width: "180",
+              align: "center"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "Opciones" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editarUsuario(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Editar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "text", size: "small" },
+                        on: {
+                          click: function($event) {
+                            return _vm.borrarUsuario(scope.row)
+                          }
+                        }
+                      },
+                      [_vm._v("Borrar")]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
     ],
     1
   )
@@ -104385,6 +105102,7 @@ Vue.component('comp-usuario', __webpack_require__(/*! ./components/comp-usuario.
 Vue.component('ambientes-maestro', __webpack_require__(/*! ./components/ambientes_maestro.vue */ "./resources/js/components/ambientes_maestro.vue").default);
 Vue.component('componentes-maestro', __webpack_require__(/*! ./components/componentes_maestro.vue */ "./resources/js/components/componentes_maestro.vue").default);
 Vue.component('configcomponentes-maestro', __webpack_require__(/*! ./components/configcomponentes_maestro.vue */ "./resources/js/components/configcomponentes_maestro.vue").default);
+Vue.component('comp-sedes', __webpack_require__(/*! ./components/comp-sedes.vue */ "./resources/js/components/comp-sedes.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -104591,6 +105309,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ambientes_maestro_vue_vue_type_template_id_ab1d6d0a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ambientes_maestro_vue_vue_type_template_id_ab1d6d0a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/comp-sedes.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/comp-sedes.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _comp_sedes_vue_vue_type_template_id_4c383066___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comp-sedes.vue?vue&type=template&id=4c383066& */ "./resources/js/components/comp-sedes.vue?vue&type=template&id=4c383066&");
+/* harmony import */ var _comp_sedes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comp-sedes.vue?vue&type=script&lang=js& */ "./resources/js/components/comp-sedes.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _comp_sedes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _comp_sedes_vue_vue_type_template_id_4c383066___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _comp_sedes_vue_vue_type_template_id_4c383066___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/comp-sedes.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/comp-sedes.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/comp-sedes.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_comp_sedes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./comp-sedes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-sedes.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_comp_sedes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/comp-sedes.vue?vue&type=template&id=4c383066&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/comp-sedes.vue?vue&type=template&id=4c383066& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_comp_sedes_vue_vue_type_template_id_4c383066___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./comp-sedes.vue?vue&type=template&id=4c383066& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/comp-sedes.vue?vue&type=template&id=4c383066&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_comp_sedes_vue_vue_type_template_id_4c383066___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_comp_sedes_vue_vue_type_template_id_4c383066___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -104890,8 +105677,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Proyectos\iosecurity\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Proyectos\iosecurity\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Repositorios\iosecurity\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Repositorios\iosecurity\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

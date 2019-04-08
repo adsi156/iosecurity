@@ -40,7 +40,35 @@ class SedesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'f004_nombre' => 'required|max:50',
+            'f004_descripcion' => 'max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errores"=>$validator->errors()]);
+        }else {
+            $datos = $request->all();
+            $sede = Sede::create($datos);
+            return response()->json($sede);
+        }
+    }
+    public function guardar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'f004_nombre' => 'required|max:50',
+            'f004_descripcion' => 'max:100'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+            $datos = $request->all();
+            Sede::create($datos);
+            return redirect('/sedescrear');
+        }
     }
 
     /**
@@ -72,9 +100,10 @@ class SedesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Sede $sede)
     {
-        //
+        $sede->update($request->all());
+        return response()->json($sede);
     }
 
     /**
@@ -83,8 +112,11 @@ class SedesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sede $sede)
     {
-        //
+        $sede->delete();
+        $respuesta = ['msg' => 'Se borro satisfactoriamente'];
+        return response()->json($respuesta,200);
+        
     }
 }

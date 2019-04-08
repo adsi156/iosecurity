@@ -46,9 +46,10 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            // return redirect()->back()
+            //             ->withErrors($validator)
+            //             ->withInput();
+            return response()->json($validator->errors(),409);
         }else {
             if ($request->file('f009_imagen')) {
                 $request['f009_imagen'] = $request->file('f009_imagen')->getClientOriginalName();
@@ -64,8 +65,9 @@ class UserController extends Controller
         */
         $datos['password'] = Hash::make($datos['password']);
 
-        User::create($datos);
-        return redirect('login');
+        $user = User::create($datos);
+        return response()->json($user);
+        // return redirect('login');
     }
 
     /**
@@ -97,9 +99,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $usuario)
     {
-        //
+        $usuario->update($request->all());
+        return response()->json($usuario);
     }
 
     /**
@@ -108,8 +111,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $usuario)
     {
-        //
+        $usuario->delete();
+        return response()->json(["msg"=>"se borro correctamente","user_delete"=>$usuario]);
     }
 }

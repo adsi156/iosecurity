@@ -43,8 +43,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    //alert("aaaaaaaaaaaaaaa");//
-</script>
 @stop

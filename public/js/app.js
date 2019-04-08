@@ -3722,7 +3722,7 @@ __webpack_require__.r(__webpack_exports__);
         f004_descripcion: this.descripcion_new
       };
 
-      if (this.rol_id != null) {
+      if (this.sede_id != null) {
         console.log("Va a actualizar");
         this.actualizarRol(sede, this.sede_id);
       } else {
